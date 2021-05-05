@@ -1,0 +1,206 @@
+<script>
+      function afterDropDownProektReturnedFin(arrayOfArrays){
+        let firma = document.getElementById('proektfin-datalist')
+        arrayOfArrays.forEach((r)=>{
+        const option = document.createElement('option')
+        option.textContent = r[0]
+        firma.appendChild(option)
+        })
+      } 
+      google.script.run.withSuccessHandler(afterDropDownProektReturnedFin).getDropDownArrayProektFin()
+
+      function afterDropDownSfReturnedFin(arrayOfArrays){
+        let firma = document.getElementById('sffin-datalist')
+        arrayOfArrays.forEach((r)=>{
+        const option = document.createElement('option')
+        option.textContent = r[0]
+        firma.appendChild(option)
+        })
+      } 
+      google.script.run.withSuccessHandler(afterDropDownSfReturnedFin).getDropDownArraySfFin()
+
+      function afterDropDownPrimReturnedFin(arrayOfArrays){
+        let firma = document.getElementById('primfin-datalist')
+        arrayOfArrays.forEach((r)=>{
+        const option = document.createElement('option')
+        option.textContent = r[0]
+        firma.appendChild(option)
+        })
+      } 
+      google.script.run.withSuccessHandler(afterDropDownPrimReturnedFin).getDropDownArrayPrimFin()
+
+      function afterDropDownFirmaReturnedFin(arrayOfArrays){
+        let firma = document.getElementById('firmafin-datalist')
+        arrayOfArrays.forEach((r)=>{
+        const option = document.createElement('option')
+        option.textContent = r[0]
+        firma.appendChild(option)
+        })
+      } 
+      google.script.run.withSuccessHandler(afterDropDownFirmaReturnedFin).getDropDownArrayFirmaFin()
+      
+      function SearchRecordsFin(){
+      var proektFin = document.getElementById("proektfin").value;
+      var summaFin = document.getElementById("summafin").value;
+      var priznakFin = document.getElementById("priznakfin").value;
+      var dateoplFin = document.getElementById("dateoplfin").value;
+      var sfFin = document.getElementById("sffin").value;
+      var primFin = document.getElementById("primfin").value;
+      var idFin = document.getElementById("idfin").value;
+      var firmaFin = document.getElementById("firmafin").value;
+      var row_number_fin = 0;
+
+      google.script.run.withSuccessHandler(function(ar) 
+      {
+       console.log(ar)
+        let naydenofin = 0
+        ar.forEach(function(item) 
+        {
+          naydenofin += item[1]*1
+        }) 
+        if (naydenofin){
+          naydenofin = "Сумма: " + naydenofin + " грн." 
+        }else{
+          "Нет данных"
+        }
+
+          var displayTable = '<form>';
+          displayTable += '<table class=\"table table-bordered border-primary mb-2 mt-2\" id=\"mainTableFin\" >';
+          displayTable += "<tr>";
+          displayTable += "<th>"+ naydenofin +"</th>";
+          
+          displayTable += "</tr>";
+
+        ar.forEach(function(item, index) 
+        {
+         
+          displayTable += "<tr id=\"ROWNUMBER:"+ row_number_fin +"\" >";
+
+          displayTable += "<td>"
+          displayTable += "<div class=\"row\">"
+          
+          displayTable += "<div class=\"col-md-2\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_proektfin\">Проект</label>  "; 
+          displayTable += "<input type=\"text\" id=\"up_proektfin"+ row_number_fin +"\" value=\""+item[0]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-2\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_summafin\">Сумма</label> ";
+          displayTable += "<input type=\"number\" id=\"up_summafin"+ row_number_fin +"\" value=\""+item[1]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-1\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_priznakfin\">Признак</label> ";
+          displayTable += "<input type=\"text\" id=\"up_priznakfin"+ row_number_fin +"\" value=\""+item[2]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-2\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_dateoplfin\">Дата оплаты</label> "; 
+          displayTable += "<input type=\"date\" id=\"up_dateoplfin"+ row_number_fin +"\" value=\""+item[3]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-2\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_sffin\">Сф</label> "; 
+          displayTable += "<input type=\"text\" id=\"up_sffin"+ row_number_fin +"\" value=\""+item[4]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-3\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_sffin\">Примечание</label> "; 
+          displayTable += "<input type=\"text\" id=\"up_primfin"+ row_number_fin +"\" value=\""+item[5]+"\" class=\"form-control\" /></div></div> ";
+
+           displayTable += "<div class=\"col-md-1\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_sffin\">ID</label> "; 
+          displayTable += "<input type=\"number\" id=\"up_idfin"+ row_number_fin +"\" value=\""+item[6]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-4\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_sffin\">Фирма</label> "; 
+          displayTable += "<input type=\"text\" disabled id=\"up_firmafin"+ row_number_fin +"\" value=\""+item[7]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-2\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_sffin\">Сумма исполу</label> "; 
+          displayTable += "<input type=\"number\" id=\"up_sumispolfin"+ row_number_fin +"\" value=\""+item[8]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-2\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_sffin\">Оплата исполу</label> "; 
+          displayTable += "<input type=\"number\" id=\"up_oplataispolfin"+ row_number_fin +"\" value=\""+item[9]+"\" class=\"form-control\" /></div></div> ";
+                   
+          displayTable += "<div class=\"col-md-1\">"
+          displayTable += "<div class=\"form-label\">"
+          
+          displayTable += "<input type=\"button\" id=\"update_button_fin"+ row_number_fin +"\" value=\"Update\" class=\"btn btn-primary\" ";
+          displayTable += "onclick=\"UpdateRecordFin("+row_number_fin+")\" /></div></div> ";
+          displayTable += "<div></div> ";
+
+          displayTable += "</tr>";
+          row_number_fin++;    
+        });
+
+        displayTable += '</table></form>';     
+        document.getElementById("rowdatafin").innerHTML = displayTable;
+
+      }).searchRecordsFin(proektFin, summaFin, priznakFin, dateoplFin, sfFin, primFin, idFin, firmaFin);
+    }
+  function ClearRecordFin()
+    {
+        document.getElementById("proektfin").value = '';
+        document.getElementById("summafin").value = '';
+        document.getElementById("priznakfin").value = '';
+        document.getElementById("dateoplfin").value = '';
+        document.getElementById("sffin").value = '';
+        document.getElementById("primfin").value = '';
+        document.getElementById("idfin").value = '';
+        document.getElementById("firmafin").value = '';
+    }
+
+  function UpdateRecordFin(row_number_fin)
+    {
+      document.getElementById("update_button_fin"+row_number_fin).disabled = true;
+     // var record_id = document.getElementById("up_record_id"+row_number_fin).value;
+      var proektFin = document.getElementById("up_proektfin"+row_number_fin).value;
+      var summaFin = document.getElementById("up_summafin"+row_number_fin).value;
+      var priznakFin = document.getElementById("up_priznakfin"+row_number_fin).value;
+      var dateoplFin = document.getElementById("up_dateoplfin"+row_number_fin).value;
+      var sfFin = document.getElementById("up_sffin"+row_number_fin).value;
+      var primFin = document.getElementById("up_primfin"+row_number_fin).value;
+      var idFin = document.getElementById("up_idfin"+row_number_fin).value;
+      var firmaFin = document.getElementById("up_firmafin"+row_number_fin).value;
+      var sumIspolFin = document.getElementById("up_sumispolfin"+row_number_fin).value;
+      var oplataIspolFin = document.getElementById("up_oplataispolfin"+row_number_fin).value;
+      
+
+      google.script.run.withSuccessHandler(function(return_string) 
+      {
+          document.getElementById("update_button_fin"+row_number_fin).disabled = false;
+          
+      }).UpdateRecordFin(proektFin, summaFin, priznakFin, dateoplFin, sfFin, primFin, idFin, firmaFin, sumIspolFin, oplataIspolFin);
+    }
+
+    function AddRowFin()
+    {
+      document.getElementById("add_button_fin").disabled = true;
+      var proektFin = document.getElementById("proektfin").value;
+      var summaFin = document.getElementById("summafin").value;
+      var priznakFin = document.getElementById("priznakfin").value;
+      var dateoplFin = document.getElementById("dateoplfin").value;
+      var sfFin = document.getElementById("sffin").value;
+      var primFin = document.getElementById("primfin").value;
+      var idFin = document.getElementById("idfin").value;
+      var firmaFin = document.getElementById("firmafin").value;
+  
+        google.script.run.withSuccessHandler(function(return_string) 
+        {
+          //ClearRecordFin()
+document.getElementById("proektfin").value = proektFin;
+          SearchRecordsFin();
+          
+          document.getElementById("add_button_fin").disabled = false;
+        }).AddRecordFin(proektFin, summaFin, priznakFin, dateoplFin, sfFin, primFin, idFin, firmaFin); 
+
+      }
+
+</script>
