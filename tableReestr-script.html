@@ -1,0 +1,272 @@
+<script>
+
+  function afterDropDownArrayReturnedReestr(arrayOfArrays){
+    let firma = document.getElementById('firmareestr-datalist')
+    arrayOfArrays.forEach((r)=>{
+      const option = document.createElement('option')
+      option.textContent = r[0]
+      firma.appendChild(option)
+    })
+  } 
+  google.script.run.withSuccessHandler(afterDropDownArrayReturnedReestr).getDropDownArrayReestr()
+
+   function afterDropDownRabotaReturnedReestr(arrayOfArrays){
+    let firma = document.getElementById('rabotareestr-datalist')
+    arrayOfArrays.forEach((r)=>{
+      const option = document.createElement('option')
+      option.textContent = r[0]
+      firma.appendChild(option)
+    })
+  } 
+  google.script.run.withSuccessHandler(afterDropDownRabotaReturnedReestr).getDropDownArrayRabotaReestr()
+
+  function afterDropDownCodeRabotaReturnedReestr(arrayOfArrays){
+    let firma = document.getElementById('coderabotareestr-datalist')
+    arrayOfArrays.forEach((r)=>{
+    const option = document.createElement('option')
+    option.textContent = r[0]
+    firma.appendChild(option)
+    })
+  } 
+  google.script.run.withSuccessHandler(afterDropDownCodeRabotaReturnedReestr).getDropDownArrayCodeRabotaReestr()
+
+  function afterDropDownProektReturnedReestr(arrayOfArrays){
+    let firma = document.getElementById('proektreestr-datalist')
+    arrayOfArrays.forEach((r)=>{
+      const option = document.createElement('option')
+      option.textContent = r[0]
+      firma.appendChild(option)
+    })
+  } 
+  google.script.run.withSuccessHandler(afterDropDownProektReturnedReestr).getDropDownArrayProektReestr()
+
+
+  function afterDropDownSotrReturnedReestr(arrayOfArrays){
+    let firma = document.getElementById('sotrreestr-datalist')
+    arrayOfArrays.forEach((r)=>{
+      const option = document.createElement('option')
+      option.textContent = r[0]
+      firma.appendChild(option)
+    })
+  } 
+  google.script.run.withSuccessHandler(afterDropDownSotrReturnedReestr).getDropDownArraySotrReestr()
+
+  function afterDropDownIspolReturnedReestr(arrayOfArrays){
+    let firma = document.getElementById('ispolreestr-datalist')
+    arrayOfArrays.forEach((r)=>{
+      const option = document.createElement('option')
+      option.textContent = r[0]
+      firma.appendChild(option)
+    })
+  } 
+  google.script.run.withSuccessHandler(afterDropDownIspolReturnedReestr).getDropDownArrayIspolReestr()
+
+  function afterDropDownPrimReturnedReestr(arrayOfArrays){
+    let firma = document.getElementById('primreestr-datalist')
+    arrayOfArrays.forEach((r)=>{
+      const option = document.createElement('option')
+      option.textContent = r[0]
+      firma.appendChild(option)
+    })
+  } 
+  google.script.run.withSuccessHandler(afterDropDownPrimReturnedReestr).getDropDownArrayPrimReestr()
+  
+  function afterDropDownPrimMoyoReturnedReestr(arrayOfArrays){
+    let firma = document.getElementById('primmoyoreestr-datalist')
+    arrayOfArrays.forEach((r)=>{
+      const option = document.createElement('option')
+      option.textContent = r[0]
+      firma.appendChild(option)
+    })
+  } 
+  google.script.run.withSuccessHandler(afterDropDownPrimMoyoReturnedReestr).getDropDownArrayPrimMoyoReestr()
+
+  function SearchRecordsReestr() 
+    {
+     
+      var dateendReestr = document.getElementById("dateendreestr").value;
+      var datestartReestr = document.getElementById("datestartreestr").value;
+      var firmaReestr = document.getElementById("firmareestr").value;
+      var rabotaReestr = document.getElementById("rabotareestr").value;
+      var coderabotaReestr = document.getElementById("coderabotareestr").value;
+      var proektReestr = document.getElementById("proektreestr").value;
+      var sotrReestr = document.getElementById("sotrreestr").value;
+      var ispolReestr = document.getElementById("ispolreestr").value;
+      var sumispolReestr = document.getElementById("sumispolreestr").value;
+      var sumoplataReestr = document.getElementById("sumoplatareestr").value;
+      var primReestr = document.getElementById("primreestr").value;
+      var primMoyoReestr = document.getElementById("primmoyoreestr").value;
+      var issuepartReestr = document.getElementById("issuepartreestr").checked;
+      var withoutaccountReestr = document.getElementById("withoutaccountreestr").checked;
+      var stoppedReestr = document.getElementById("stoppedreestr").checked;
+      var row_number_reestr = 0;
+
+      google.script.run.withSuccessHandler(function(ar) 
+      {
+     
+          var displayTableReestr = '<form>';
+          displayTableReestr += '<table class=\"table table-bordered border-primary mb-2 mt-2\" id=\"mainTableReestr\" >';
+          displayTableReestr += "<tr>";
+          displayTableReestr += "<th>Найдено:</th>";
+          displayTableReestr += "<th></th>";
+          displayTableReestr += "<th></th>";
+          displayTableReestr += "<th></th>";
+          displayTableReestr += "</tr>";
+
+        ar.forEach(function(item, index) 
+        {
+          displayTableReestr += "<tr id=\"ROWNUMBER:"+ row_number_reestr +"\" >";
+
+          displayTableReestr += "<td colspan=\"9\">"
+          displayTableReestr += "<div class=\"row g-1 mt-1\">"
+          
+          displayTableReestr += "<div class=\"col-auto\">"
+          displayTableReestr += "<div class=\"form-label bg-light\">"
+          displayTableReestr += "<label for=\"up_dateendreestr\">Дата конец</label>  ";
+          displayTableReestr += "<input type=\"date\" id=\"up_dateendreestr"+ row_number_reestr +"\" value=\""+item[0]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTableReestr += "<div class=\"col-auto\">"
+          displayTableReestr += "<div class=\"form-label bg-light\">"
+          displayTableReestr += "<label for=\"up_datestartreestr\">Дата начало</label> ";
+          displayTableReestr += "<input type=\"date\" id=\"up_datestartreestr"+ row_number_reestr +"\" value=\""+item[1]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTableReestr += "<div class=\"col-md-5\">"
+          displayTableReestr += "<div class=\"form-label bg-light\">"
+          displayTableReestr += "<label for=\"up_firmareestr\">Фирма</label> ";
+          displayTableReestr += "<input type=\"text\" id=\"up_firmareestr"+ row_number_reestr +"\" value=\""+item[2]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTableReestr += "<div class=\"col-md-2\">"
+          displayTableReestr += "<div class=\"form-label bg-light\">"
+          displayTableReestr += "<label for=\"up_rabotareestr\">Работа</label> "; 
+          displayTableReestr += "<input type=\"text\" id=\"up_rabotareestr"+ row_number_reestr +"\" value=\""+item[3]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTableReestr += "<div class=\"col-md-1\">"
+          displayTableReestr += "<div class=\"form-label bg-light\">"
+          displayTableReestr += "<label for=\"up_coderabotareestr\">Код раб</label> "; 
+          displayTableReestr += "<input type=\"text\" id=\"up_coderabotareestr"+ row_number_reestr +"\" value=\""+item[4]+"\" class=\"form-control\" /></div></div> ";
+          
+          displayTableReestr += "<div class=\"col-md-2\">"
+          displayTableReestr += "<div class=\"form-label bg-light\">"
+          displayTableReestr += "<label for=\"up_proektreestr\">Проект</label> ";
+          displayTableReestr += "<input type=\"number\" id=\"up_proektreestr"+ row_number_reestr +"\" value=\""+item[5]+"\" class=\"form-control\" /></div></div> ";
+          
+          
+          displayTableReestr += "<div class=\"col-auto\">"
+          displayTableReestr += "<div class=\"form-label bg-light\">"
+          displayTableReestr += "<label for=\"up_sotrreestr\">Сотрудник</label> ";
+          displayTableReestr += "<input type=\"text\" id=\"up_sotrreestr"+ row_number_reestr +"\" value=\""+item[6]+"\" class=\"form-control\" /></div></div> ";          
+
+          displayTableReestr += "<div class=\"col-auto\">"
+          displayTableReestr += "<div class=\"form-label bg-light\">"
+          displayTableReestr += "<label for=\"up_ispolreestr\">Исполнитель</label> ";
+          displayTableReestr += "<input type=\"text\" id=\"up_ispolreestr"+ row_number_reestr +"\" value=\""+item[7]+"\" class=\"form-control\" /></div></div> ";          
+
+          displayTableReestr += "<div class=\"col-md-2\">"
+          displayTableReestr += "<div class=\"form-label bg-light\">" 
+          displayTableReestr += "<label for=\"up_sumispolreestr\">Сумма исполнителю</label> ";
+          displayTableReestr += "<input type=\"number\" id=\"up_sumispolreestr"+ row_number_reestr +"\" value=\""+item[8]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTableReestr += "<div class=\"col-md-2\">"
+          displayTableReestr += "<div class=\"form-label bg-light\">" 
+          displayTableReestr += "<label for=\"up_sumoplatareestr\">Оплата исполнителю</label> ";
+          displayTableReestr += "<input type=\"number\" id=\"up_sumoplatareestr"+ row_number_reestr +"\" value=\""+item[9]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTableReestr += "<div class=\"col-md-4\">"
+          displayTableReestr += "<div class=\"form-label bg-light\">" 
+          displayTableReestr += "<label for=\"up_primreestr\">Примечание к проекту</label> ";
+          displayTableReestr += "<input type=\"text\" id=\"up_primreestr"+ row_number_reestr +"\" value=\""+item[10]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTableReestr += "<div class=\"col-md-4\">"
+          displayTableReestr += "<div class=\"form-label bg-light\">" 
+          displayTableReestr += "<label for=\"up_primmoyoreestr\">Примечание мое</label> ";
+          displayTableReestr += "<input type=\"text\" id=\"up_primmoyoreestr"+ row_number_reestr +"\" value=\""+item[11]+"\" class=\"form-control\" /></div></div></div> ";
+
+          displayTableReestr += "<div class=\"row g-1 mt-1\">"
+          displayTableReestr += "<div class=\"col-auto\">"
+          displayTableReestr += "<div class=\"form-check bg-light\">" 
+          displayTableReestr += "<label for=\"up_issuepartreestr\">Выставлено частично</label> ";
+          displayTableReestr += "<input type=\"checkbox\" id=\"up_issuepartreestr"+ row_number_reestr +"\" value=\""+item[12]+"\" class=\"form-check-input\" /></div></div> ";
+
+          displayTableReestr += "<div class=\"col-auto\">"
+          displayTableReestr += "<div class=\"form-check bg-light\">" 
+          displayTableReestr += "<label for=\"up_withoutaccountreestr\">Без счета</label> ";
+          displayTableReestr += "<input type=\"checkbox\" id=\"up_withoutaccountreestr"+ row_number_reestr +"\" value=\""+item[13]+"\" class=\"form-check-input\" /></div></div> ";
+
+          displayTableReestr += "<div class=\"col-auto\">"
+          displayTableReestr += "<div class=\"form-check bg-light\">" 
+          displayTableReestr += "<label for=\"up_stoppedreestr\">Остановлено</label> ";
+          displayTableReestr += "<input type=\"checkbox\" id=\"up_stoppedreestr"+ row_number_reestr +"\" value=\""+item[14]+"\" class=\"form-check-input\" /></div></div></div> ";
+          
+          displayTableReestr += "<td><div style=\"padding: 5px\"> ";
+
+          displayTableReestr += "<input type=\"button\" id=\"update_button_reestr"+ row_number_reestr +"\" value=\"Update\" class=\"btn btn-primary\" ";
+          displayTableReestr += "onclick=\"UpdateRecordReestr("+row_number_reestr+")\" /></div> ";
+
+          
+          displayTableReestr += "<div style=\"padding: 5px\" > ";
+
+/*           displayTableReestr += "<input type=\"button\" id=\"delete_button_Reestr"+ row_number_reestr +"\" value=\"Delete\" class=\"btn btn-primary\" ";
+          displayTableReestr += "onclick=\"DeleteRecordReestr("+row_number_reestr+")\" /></div> "; */
+
+
+          displayTableReestr += "</td>";
+          displayTableReestr += "</tr>";
+          row_number_reestr++;    
+        });
+
+        displayTableReestr += '</table></form>';     
+        document.getElementById("rowdatareestr").innerHTML = displayTableReestr;
+
+      }).searchRecordsReestrGs(dateendReestr,datestartReestr, firmaReestr, rabotaReestr, coderabotaReestr, proektReestr, sotrReestr, ispolReestr, sumispolReestr, sumoplataReestr, primReestr, primMoyoReestr, issuepartReestr, withoutaccountReestr, stoppedReestr);
+}
+
+  function ClearRecordReestr()
+    {
+      document.getElementById("dateendreestr").value = ''
+      document.getElementById("datestartreestr").value = ''
+      document.getElementById("firmareestr").value = ''
+      document.getElementById("rabotareestr").value = ''
+      document.getElementById("coderabotareestr").value = ''
+      document.getElementById("proektreestr").value = ''
+      document.getElementById("sotrreestr").value = ''
+      document.getElementById("ispolreestr").value = ''
+      document.getElementById("sumispolreestr").value = ''
+      document.getElementById("sumoplatareestr").value = ''
+      document.getElementById("primreestr").value = ''
+      document.getElementById("primmoyoreestr").value = ''
+      document.getElementById("issuepartreestr").checked = false
+      document.getElementById("withoutaccountreestr").checked = false
+      document.getElementById("stoppedreestr").checked = false
+    }
+
+  function UpdateRecordReestr(row_number_reestr)
+    {
+      document.getElementById("update_button_reestr"+row_number_reestr).disabled = true;
+
+      var dateendReestr = document.getElementById("up_dateendreestr"+row_number_reestr).value;
+      var datestartReestr = document.getElementById("up_datestartreestr"+row_number_reestr).value;
+      var firmaReestr = document.getElementById("up_firmareestr"+row_number_reestr).value;
+      var rabotaReestr = document.getElementById("up_rabotareestr"+row_number_reestr).value;
+      var coderabotaReestr = document.getElementById("up_coderabotareestr"+row_number_reestr).value;
+      var proektReestr = document.getElementById("up_proektreestr"+row_number_reestr).value;
+      var sotrReestr = document.getElementById("up_sotrreestr"+row_number_reestr).value;
+      var ispolReestr = document.getElementById("up_ispolreestr"+row_number_reestr).value;
+      var sumispolReestr = document.getElementById("up_sumispolreestr"+row_number_reestr).value;
+      var sumoplataReestr = document.getElementById("up_sumoplatareestr"+row_number_reestr).value;
+      var primReestr = document.getElementById("up_primreestr"+row_number_reestr).value;
+      var primMoyoReestr = document.getElementById("up_primmoyoreestr"+row_number_reestr).value;
+      var issuepartReestr = document.getElementById("up_issuepartreestr"+row_number_reestr).checked;
+      var withoutaccountReestr = document.getElementById("up_withoutaccountreestr"+row_number_reestr).checked;
+      var stoppedReestr = document.getElementById("up_stoppedreestr"+row_number_reestr).checked;
+
+      google.script.run.withSuccessHandler(function(return_string) 
+      {
+          document.getElementById("update_button_reestr"+row_number_reestr).disabled = false;
+      }).UpdateRecordReestrGs(dateendReestr,datestartReestr, firmaReestr, rabotaReestr, coderabotaReestr, proektReestr, sotrReestr, ispolReestr, sumispolReestr, sumoplataReestr, primReestr, primMoyoReestr, issuepartReestr, withoutaccountReestr, stoppedReestr);
+    }
+
+    
+
+
+
+</script>
