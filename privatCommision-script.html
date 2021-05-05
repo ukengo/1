@@ -1,0 +1,25 @@
+<script>
+  
+  function rowDataRangePrivat(){
+    const datePriv = document.getElementById('datePriv')
+	  const qtt = document.getElementById('qtt')
+		const formaPriv = document.getElementById('formaPriv')
+		return rowData = 
+      [
+        datePriv.value,
+        +qtt.value*3,
+        formaPriv.value,
+        'Приват комиссия' 
+      ]
+  }
+
+  function buttonClickPrivat(){
+    google.script.run.addNewRowMinusThreee(rowDataRangePrivat())
+    buttonClickOchistkaAW()
+  }
+
+  document.getElementById('buttonPrivat').addEventListener('click',buttonClickPrivat)
+
+  document.getElementById('datePriv').valueAsDate = new Date()
+
+</script>
