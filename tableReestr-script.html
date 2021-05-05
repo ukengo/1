@@ -115,6 +115,8 @@
 
         ar.forEach(function(item, index) 
         {
+        
+          console.log(checked(item[13]))
           displayTableReestr += "<tr id=\"ROWNUMBER:"+ row_number_reestr +"\" >";
 
           displayTableReestr += "<td colspan=\"9\">"
@@ -128,8 +130,15 @@
           displayTableReestr += "<div class=\"col-auto\">"
           displayTableReestr += "<div class=\"form-label bg-light\">"
           displayTableReestr += "<label for=\"up_datestartreestr\">Дата начало</label> ";
-          displayTableReestr += "<input type=\"date\" id=\"up_datestartreestr"+ row_number_reestr +"\" value=\""+item[1]+"\" class=\"form-control\" /></div></div> ";
+          displayTableReestr += "<input type=\"date\" id=\"up_datestartreestr"+ row_number_reestr +"\" value=\""+item[1]+"\" class=\"form-control\" />"
+          displayTableReestr += "</div></div> ";
 
+         
+         
+         
+         
+         
+         
           displayTableReestr += "<div class=\"col-md-5\">"
           displayTableReestr += "<div class=\"form-label bg-light\">"
           displayTableReestr += "<label for=\"up_firmareestr\">Фирма</label> ";
@@ -185,17 +194,23 @@
           displayTableReestr += "<div class=\"col-auto\">"
           displayTableReestr += "<div class=\"form-check bg-light\">" 
           displayTableReestr += "<label for=\"up_issuepartreestr\">Выставлено частично</label> ";
-          displayTableReestr += "<input type=\"checkbox\" id=\"up_issuepartreestr"+ row_number_reestr +"\" value=\""+item[12]+"\" class=\"form-check-input\" /></div></div> ";
+          displayTableReestr += "<input type=\"checkbox\" id=\"up_issuepartreestr"+ row_number_reestr +"\" class=\"form-check-input\" "
+          displayTableReestr += checked(item[12])
+          displayTableReestr += "/> </div></div> ";
 
           displayTableReestr += "<div class=\"col-auto\">"
           displayTableReestr += "<div class=\"form-check bg-light\">" 
           displayTableReestr += "<label for=\"up_withoutaccountreestr\">Без счета</label> ";
-          displayTableReestr += "<input type=\"checkbox\" id=\"up_withoutaccountreestr"+ row_number_reestr +"\" value=\""+item[13]+"\" class=\"form-check-input\" /></div></div> ";
+          displayTableReestr += "<input type=\"checkbox\" id=\"up_withoutaccountreestr"+ row_number_reestr +"\" value=\""+item[13]+"\" class=\"form-check-input\" ";
+          displayTableReestr += checked(item[13])
+          displayTableReestr += "/> </div></div> ";
 
           displayTableReestr += "<div class=\"col-auto\">"
           displayTableReestr += "<div class=\"form-check bg-light\">" 
           displayTableReestr += "<label for=\"up_stoppedreestr\">Остановлено</label> ";
-          displayTableReestr += "<input type=\"checkbox\" id=\"up_stoppedreestr"+ row_number_reestr +"\" value=\""+item[14]+"\" class=\"form-check-input\" /></div></div></div> ";
+          displayTableReestr += "<input type=\"checkbox\" id=\"up_stoppedreestr"+ row_number_reestr +"\" value=\""+item[14]+"\" class=\"form-check-input\" ";
+          displayTableReestr += checked(item[14])
+          displayTableReestr += "/> </div></div> ";
           
           displayTableReestr += "<td><div style=\"padding: 5px\"> ";
 
@@ -266,7 +281,14 @@
     }
 
     
+  function checked(item){
+    if(item === true){
+      return 'checked'
+    }else{
+      return '777'
+    }
 
+  }
 
 
 </script>
