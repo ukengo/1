@@ -46,6 +46,21 @@
 
 <script>
 
+function clearDiv(){
+ 
+ document.getElementById('vrabotevse').innerHTML = '' 
+ document.getElementById('vrabotevse1').innerHTML = '' 
+ document.getElementById('vrabotevse2').innerHTML = '' 
+ document.getElementById('vrabotevse3').innerHTML = '' 
+ document.getElementById('vrabotevse4').innerHTML = '' 
+ document.getElementById('dataTableBuh').innerHTML = '' 
+ document.getElementById('dataTableBuh1').innerHTML = '' 
+ document.getElementById('dataTableBuh2').innerHTML = '' 
+ document.getElementById('dataTableBuh3').innerHTML = '' 
+ document.getElementById('dataTableBuh4').innerHTML = '' 
+ 
+}
+
 //BUHGALTER
 function buttonClickBuh(){
     google.script.run.withSuccessHandler(displayResults).buhgalterTable()
@@ -77,20 +92,26 @@ function displayResults(dataArray) {
 
 
 //NEVISTAVLENO - NEOPLACHENO
+
 function startDataNevistvleno(){
+    clearDiv()
     google.script.run.withSuccessHandler(createTableNevistavleno).startDataNevistvleno();
   }
   function startDataNeoplacheno(){
+    clearDiv()
     google.script.run.withSuccessHandler(createTableNeoplacheno).startDataNeoplacheno();
   }
   function startDataVraboteR(){
+    clearDiv()
     google.script.run.withSuccessHandler(createTableVrboteR).startDataVraboteR();
   }
   function startDataVraboteT(){
+    clearDiv()
     google.script.run.withSuccessHandler(createTableVrboteT).startDataVraboteT();
   }
   
   function startDataSotr(){
+    clearDiv()
     startDataSotrCount()
     startDataSotrDataLazorenko()
     startDataSotrDataDilanjan()
