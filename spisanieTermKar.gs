@@ -33,7 +33,7 @@ function vReestrTerminalKarantin(data) {
   if (data[4] === 'карантин') {
     console.log('dd')
     if (valueReestrTrataNaznechenie.toString().includes(valueVhodSchet) == false) {
-      let res = [Utilities.formatDate(new Date(data[0]), 'Europe/Kiev', 'dd.MM.yyyy'), data[1], 'ооо', 'КАРАНТИН ' + 'пп' + data[5]]
+      let res = [Utilities.formatDate(new Date(data[0]), 'Europe/Kiev', 'dd.MM.yyyy'), data[1], 'ооо', 'КАРАНТИН ' + '' + data[5]]
       sheetReestrTrata.appendRow(res)
 
     }
