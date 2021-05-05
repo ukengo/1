@@ -1,0 +1,133 @@
+<script>
+
+  function afterDropDownArrayReturned(arrayOfArrays){
+    let firma = document.getElementById('firma-datalist')
+    arrayOfArrays.forEach((r)=>{
+      const option = document.createElement('option')
+      option.textContent = r[0]
+      firma.appendChild(option)
+    })
+  } 
+  google.script.run.withSuccessHandler(afterDropDownArrayReturned).getDropDownArray()
+
+  function afterDropDownRabotaReturned(arrayOfArrays){
+    let firma = document.getElementById('rabota-datalist')
+    arrayOfArrays.forEach((r)=>{
+      const option = document.createElement('option')
+      option.textContent = r[0]
+      firma.appendChild(option)
+    })
+  } 
+  google.script.run.withSuccessHandler(afterDropDownRabotaReturned).getDropDownArrayRabota()
+
+  function afterDropDownCodeRabotaReturned(arrayOfArrays){
+    let firma = document.getElementById('code-rabota-datalist')
+    arrayOfArrays.forEach((r)=>{
+    const option = document.createElement('option')
+    option.textContent = r[0]
+    firma.appendChild(option)
+    })
+  } 
+  google.script.run.withSuccessHandler(afterDropDownCodeRabotaReturned).getDropDownArrayCodeRabota()
+
+  function afterDropDownSotruReturned(arrayOfArrays){
+    let firma = document.getElementById('sotr-datalist')
+    arrayOfArrays.forEach((r)=>{
+      const option = document.createElement('option')
+      option.textContent = r[0]
+      firma.appendChild(option)
+    })
+  } 
+  google.script.run.withSuccessHandler(afterDropDownSotruReturned).getDropDownArraySotr()
+   
+  function afterDropDownPrimReturned(arrayOfArrays){
+    let firma = document.getElementById('prim-datalist')
+    arrayOfArrays.forEach((r)=>{
+      const option = document.createElement('option')
+      option.textContent = r[0]
+      firma.appendChild(option)
+    })
+  } 
+  google.script.run.withSuccessHandler(afterDropDownPrimReturned).getDropDownArrayPrim()
+
+  function afterproekt(array){
+    document.getElementById('proekt').value = array
+  }
+
+  google.script.run.withSuccessHandler(afterproekt).addpRoekt()
+
+  function rowDataRangeProekt(){
+    const firmaElem = document.getElementById('firma')
+    const rabotaElem = document.getElementById('rabota')
+    const kodeRabotaElem = document.getElementById('code-rabota')
+    const proektElem = document.getElementById('proekt')
+    const dateNachElem = document.getElementById('date-nach')
+    const dateConElem = document.getElementById('date-con')
+    const schElem = document.getElementById('sch')
+    const primElem = document.getElementById('prim')
+    const ispolElem = document.getElementById('sotr')
+    
+    return rowData = 
+      [
+        dateConElem.value,
+        dateNachElem.value,
+        firmaElem.value,
+        rabotaElem.value,
+        kodeRabotaElem.value,
+        proektElem.value,
+        ispolElem.value,
+        schElem.value,
+        primElem.value
+      ]
+  } 
+   
+  function buttonClickAf(){
+    google.script.run.createNewFolder(rowDataRangeProekt()[5],rowDataRangeProekt()[2],rowDataRangeProekt()[8])
+    buttonClickOchistka()
+    document.getElementById('proekt').value = rowDataRangeProekt()[5]*1+1
+    }
+  
+  function buttonClickClose(){  
+    buttonClickEnter()
+    setTimeout(google.script.host.close, 250);  
+  }
+
+  function buttonClickEnter(){
+    google.script.run.addNewRow(rowDataRangeProekt())
+    buttonClickAf()
+  }
+
+  function buttonClickBezAf(){
+    google.script.run.addNewRow(rowDataRangeProekt())
+    buttonClickOchistka()
+    document.getElementById('proekt').value = rowDataRangeProekt()[5]*1+1
+  }
+
+  function buttonClickOtOrgana(){
+    google.script.run.createNewFolderOtOrgana(rowDataRangeProekt()[5],rowDataRangeProekt()[2],rowDataRangeProekt()[8])
+    google.script.run.addNewRow(rowDataRangeProekt())
+    buttonClickOchistka()
+    document.getElementById('proekt').value = rowDataRangeProekt()[5]*1+1
+    
+  }
+
+  function buttonClickOchistka(){
+    document.getElementById('firma').value = ""
+    document.getElementById('rabota').value = ""
+    document.getElementById('code-rabota').value = ""
+    document.getElementById('date-con').value = ""
+    document.getElementById('sch').value = ""
+    document.getElementById('prim').value = ""
+    document.getElementById('sotr').value = ""
+  }
+      
+  document.getElementById('mainButton').addEventListener('click',buttonClickEnter)
+  document.getElementById('buttonEnterAndClose').addEventListener('click',buttonClickClose)
+  document.getElementById('buttonAf').addEventListener('click',buttonClickAf)
+  document.getElementById('buttonOtOrgana').addEventListener('click',buttonClickOtOrgana)
+  document.getElementById('buttonOchistka').addEventListener('click',buttonClickOchistka)
+  document.getElementById('buttonBezAf').addEventListener('click',buttonClickBezAf)
+
+  document.getElementById('date-nach').valueAsDate = new Date()
+
+</script>
