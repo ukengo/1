@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="row g-1 mt-1 ">
+
+    <h5>Финансы</h5>
+    <div class="col-md-1">
+      <div class="form-label bg-light">
+        <label for="proektfin">Проект</label>
+        <input type="number" id="proektfin" list="proektfin-datalist"  class="form-control" />
+        <datalist id="proektfin-datalist"></datalist> 
+      </div>
+    </div>
+            
+    <div class="col-md-2">
+      <div class="form-label bg-light">
+        <label for="summafin">Сумма</label>
+        <input type="number" id="summafin" class="form-control"/>
+      </div>
+    </div>
+
+    <div class="col-md-1">
+      <div class="form-label bg-light">
+        <label for="priznakfin">Признак</label>
+        <select type="text" id="priznakfin" list="priznakfin-datalist" class="form-control" />
+          <option></option>
+          <option>нал</option>
+          <option>ооо</option>
+          <option>флп</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-label bg-light">
+         <label for="dateoplfin">Дата оплаты</label>
+         <input type="date" id="dateoplfin" class="form-control" />
+      </div>
+    </div>
+       
+    <div class="col-md-2">
+      <div class="form-label bg-light">
+        <label for="sffin">Сф</label>
+        <input type="text" id="sffin" list="sffin-datalist"  class="form-control" />
+        <datalist id="sffin-datalist"></datalist> 
+      </div>
+    </div>
+  
+    <div class="col-md-3">
+      <div class="form-label bg-light">
+        <label for="primfin">Примечание</label>
+        <input type="text" id="primfin" list="primfin-datalist" class="form-control" />
+        <datalist id="primfin-datalist"></datalist> 
+      </div>  
+    </div>  
+
+    <div class="col-md-1">
+      <div class="form-label bg-light">
+        <label for="idfin">id</label>
+        <input type="text" id="idfin" class="form-control" />
+    </div>
+
+  </div>  
+</div>  
+
+<div class="container">
+  <div class="row  mb-2 mt-2">     
+    <div class="col-md-4">
+      <div class="form-label bg-light">
+        <label for="firmafin">Фирма</label>
+        <input type="text" id="firmafin" list="firmafin-datalist"  class="form-control" />
+        <datalist id="firmafin-datalist"></datalist> 
+      </div>
+    </div>
+  </div> 
+  <div class="row  mb-2 mt-2">        
+    <div class="col-md-4">
+      <input type="button" value="Search" class="btn btn-primary" onclick="SearchRecordsFin()" />
+      <input type="button" value="Add Record" class="btn btn-primary" onclick="AddRowFin()" id="add_button_fin" />
+      <input type="button" value="Clear Record" class="btn btn-primary" onclick="ClearRecordFin()" />
+    </div>
+  </div>    
+  <div class="row  mb-4 mt-2">          
+    <div id="rowdatafin"></div>
+  </div>
+
+</div>
+
+
+
+</div>
+    
