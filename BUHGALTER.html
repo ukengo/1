@@ -1,0 +1,338 @@
+<div class="container">
+	<div class="row mb-4 mt-2">
+		<div class="col-auto">
+			<button type="button" class="btn btn-primary mb-2 mt-2" id="buttonBuh" >BUHGALTER</button><br>
+    </div>
+   	<div class="col-auto">
+      <button type="button" class="btn btn-primary mb-2 mt-2" id="buttonNevistavleno" >Не выставлено</button><br>
+   	</div>
+    <div class="col-auto">
+      <button type="button" class="btn btn-primary mb-2 mt-2" id="buttonNeoplacheno" >Не оплачено</button><br>
+   	</div>
+    <div class="col-auto">
+      <button type="button" class="btn btn-primary mb-2 mt-2" id="buttonVraboteR" >В работе Р</button><br>
+   	</div>
+    <div class="col-auto">
+       <button type="button" class="btn btn-primary mb-2 mt-2" id="buttonVraboteT" >В работе т</button><br>
+    </div>
+    <div class="col-auto">
+       <button type="button" class="btn btn-primary mb-2 mt-2" id="buttonSotr" >Sotr</button><br>
+    </div>
+      <div id="results"></div>
+      <div id="results1"></div>
+      <div id="results2"></div>
+      <div id="results3"></div>
+      <div id="results4"></div>
+    
+		</div>
+
+    <div class="col-xl-5">
+		<p id="vrabotevse" class="h4 mb-4 text-center"></p>
+		<div id="dataTableBuh" class="table-responsive"></div>
+    <p id="vrabotevse1" class="h4 mb-4 text-center"></p>
+    <div id="dataTableBuh1" class="table-responsive"></div>
+    <p id="vrabotevse2" class="h4 mb-4 text-center"></p>
+		<div id="dataTableBuh2" class="table-responsive"></div>
+    <p id="vrabotevse3" class="h4 mb-4 text-center"></p>
+		<div id="dataTableBuh3" class="table-responsive"></div>
+    <p id="vrabotevse4" class="h4 mb-4 text-center"></p>
+    <div id="dataTableBuh4" class="table-responsive"></div>
+  </div>
+</div>
+
+
+
+
+
+<script>
+
+//BUHGALTER
+function buttonClickBuh(){
+    google.script.run.withSuccessHandler(displayResults).buhgalterTable()
+  }
+
+function displayResults(dataArray) {
+ 
+ 
+      if(dataArray){
+      var result = "<table class='table table-striped table-sm' style='font-size:0.8em'>"
+      for(var i=0; i<dataArray.length; i++) {
+          result += "<tr>";
+          
+          for(var j=0; j<dataArray[i].length; j++){
+              result += "<td>"+dataArray[i][j]+"</td>";
+          }
+          result += "</tr>";
+      }
+      result += "</table>";
+   
+      var div = document.getElementById('dataTableBuh');
+      div.innerHTML = result;
+      document.getElementById('vrabotevse').innerHTML = 'Счета выставлены' // nameTable[1][0];
+     }else{
+      var div = document.getElementById('dataTableBuh');
+      div.innerHTML = "Data not found!";
+    }
+  }
+
+
+//NEVISTAVLENO - NEOPLACHENO
+function startDataNevistvleno(){
+    google.script.run.withSuccessHandler(createTableNevistavleno).startDataNevistvleno();
+  }
+  function startDataNeoplacheno(){
+    google.script.run.withSuccessHandler(createTableNeoplacheno).startDataNeoplacheno();
+  }
+  function startDataVraboteR(){
+    google.script.run.withSuccessHandler(createTableVrboteR).startDataVraboteR();
+  }
+  function startDataVraboteT(){
+    google.script.run.withSuccessHandler(createTableVrboteT).startDataVraboteT();
+  }
+  
+  function startDataSotr(){
+    startDataSotrCount()
+    startDataSotrDataLazorenko()
+    startDataSotrDataDilanjan()
+    startDataSotrDataKinzerskiy()
+    startDataSotrDataZinonkina()
+  }
+
+  function startDataSotrCount(){
+    google.script.run.withSuccessHandler(createTableSotrCount).startDataSotrGs();
+  }
+  
+  function startDataSotrDataLazorenko(){
+    google.script.run.withSuccessHandler(function createTableSotrLazorenko(arr){
+        const dataArraySotr = arr.resLazorenko
+        const nameSotr = arr.nameLazorenko
+        const countSotr = arr.countLazorenko
+        createTableSotData(dataArraySotr,nameSotr,1,countSotr)})
+        .startDataSotrGs();
+  }
+
+  function startDataSotrDataDilanjan(){
+    google.script.run.withSuccessHandler(function createTableSotrDilanjan(arr){
+        const dataArraySotr = arr.resDilanjan
+        const nameSotr = arr.nameDilanjan
+        const countSotr = arr.countDilanjan
+        createTableSotData(dataArraySotr,nameSotr,2,countSotr)})
+        .startDataSotrGs();
+  }
+
+  function startDataSotrDataKinzerskiy(){
+    google.script.run.withSuccessHandler(function createTableSotrKinzerskiy(arr){
+        const dataArraySotr = arr.resKinzerskiy
+        const nameSotr = arr.nameKinzerskiy
+        const countSotr = arr.countKinzerskiy
+        createTableSotData(dataArraySotr,nameSotr,3,countSotr)})
+        .startDataSotrGs();
+  }
+  
+  function startDataSotrDataZinonkina(){
+    google.script.run.withSuccessHandler(function createTableSotrZinonkina(arr){
+        const dataArraySotr = arr.resZinonkina
+        const nameSotr = arr.nameZinonkina
+        const countSotr = arr.countZinonkina
+        createTableSotData(dataArraySotr,nameSotr,4,countSotr)})
+        .startDataSotrGs();
+  }
+
+  
+   
+  //CREATE THE DATA TABLE
+  function createTableNevistavleno(dataArray) {
+  
+   const nameTable = dataArray.slice()
+  
+   
+   dataArray.splice(0, 2)
+   dataArray = dataArray.map(x => [x[4], x[2], x[3]])
+      if(dataArray){
+      var result = "<table class='table table-striped table-sm' style='font-size:0.8em'>"+
+                   "<thead style='white-space: nowrap'><tr>"
+        for(var i=0; i<dataArray[i].length; i++){
+              result += "<th>"+dataArray[0][i]+"</th>";
+          }               
+      result += "</tr>"+"</thead>";
+      for(var i=1; i<dataArray.length; i++) {
+          result += "<tr>";
+          
+          for(var j=0; j<dataArray[i].length; j++){
+              result += "<td>"+dataArray[i][j]+"</td>";
+          }
+          result += "</tr>";
+      }
+      result += "</table>";
+      var div = document.getElementById('dataTableBuh');
+      div.innerHTML = result;
+      document.getElementById('vrabotevse').innerHTML = 'Не выставлено' // nameTable[1][0];
+     }else{
+      var div = document.getElementById('dataTableBuh');
+      div.innerHTML = "Data not found!";
+    }
+  }
+
+  function createTableNeoplacheno(dataArray) {
+  
+   const nameTable = dataArray.slice()
+   dataArray.splice(0, 2)
+   dataArray = dataArray.map(x => [x[0],x[1],x[2],x[3]])
+      if(dataArray){
+      var result = "<table class='table table-striped table-sm' style='font-size:0.8em'>"+
+                   "<thead style='white-space: nowrap'><tr>"
+        for(var i=0; i<dataArray[i].length; i++){
+              result += "<th>"+dataArray[0][i]+"</th>";
+          }               
+      result += "</tr>"+"</thead>";
+      for(var i=1; i<dataArray.length; i++) {
+          result += "<tr>";
+          
+          for(var j=0; j<dataArray[i].length; j++){
+              result += "<td>"+dataArray[i][j]+"</td>";
+          }
+          result += "</tr>";
+      }
+      result += "</table>";
+      var div = document.getElementById('dataTableBuh');
+      div.innerHTML = result;
+      document.getElementById('vrabotevse').innerHTML = 'Не опллачено'
+     }else{
+      var div = document.getElementById('dataTableBuh');
+      div.innerHTML = "Data not found!";
+    }
+  }
+
+  function createTableVrboteR(dataArray) {
+   
+   const nameTable = dataArray.slice()
+   dataArray.splice(0, 2)
+   dataArray = dataArray.map(x => [x[1],x[2],x[3],x[4]])
+      if(dataArray){
+      var result = "<table class='table table-striped table-sm' style='font-size:0.8em'>"+
+                   "<thead style='white-space: nowrap'><tr>"
+        for(var i=0; i<dataArray[i].length; i++){
+              result += "<th>"+dataArray[0][i]+"</th>";
+          }               
+      result += "</tr>"+"</thead>";
+      for(var i=1; i<dataArray.length; i++) {
+          result += "<tr>";
+          
+          for(var j=0; j<dataArray[i].length; j++){
+              result += "<td>"+dataArray[i][j]+"</td>";
+          }
+          result += "</tr>";
+      }
+      result += "</table>";
+      var div = document.getElementById('dataTableBuh');
+      div.innerHTML = result;
+      document.getElementById('vrabotevse').innerHTML = 'В работе разрешиловка'
+     }else{
+      var div = document.getElementById('dataTableBuh');
+      div.innerHTML = "Data not found!";
+    }
+  }
+  
+  function createTableVrboteT(dataArray) {
+   
+   const nameTable = dataArray.slice()
+   dataArray.splice(0, 2)
+   dataArray = dataArray.map(x => [x[1],x[2],x[3],x[4]])
+      if(dataArray){
+      var result = "<table class='table table-striped table-sm' style='font-size:0.8em'>"+
+                   "<thead style='white-space: nowrap'><tr>"
+        for(var i=0; i<dataArray[i].length; i++){
+              result += "<th>"+dataArray[0][i]+"</th>";
+          }               
+      result += "</tr>"+"</thead>";
+      for(var i=1; i<dataArray.length; i++) {
+          result += "<tr>";
+          
+          for(var j=0; j<dataArray[i].length; j++){
+              result += "<td>"+dataArray[i][j]+"</td>";
+          }
+          result += "</tr>";
+      }
+      result += "</table>";
+      var div = document.getElementById('dataTableBuh');
+      div.innerHTML = result;
+      document.getElementById('vrabotevse').innerHTML = 'В работе таможня'
+     }else{
+      var div = document.getElementById('dataTableBuh');
+      div.innerHTML = "Data not found!";
+    }
+  }
+
+  
+  function createTableSotrCount(dataArray) {
+    const dataArrayCount = [
+                          [dataArray.nameLazorenko, dataArray.countLazorenko],
+                          [dataArray.nameDilanjan, dataArray.countDilanjan],
+                          [dataArray.nameKinzerskiy, dataArray.countKinzerskiy],
+                          [dataArray.nameZinonkina, dataArray.countZinonkina],
+                          ]
+  
+      if(dataArrayCount){
+      var result = "<table class='table table-striped table-sm' style='font-size:0.8em'>"
+      
+      for(var i=0; i<dataArrayCount.length; i++) {
+          result += "<tr>";
+          
+          for(var j=0; j<dataArrayCount[i].length; j++){
+              result += "<td>"+dataArrayCount[i][j]+"</td>";
+          }
+          result += "</tr>";
+      }
+      result += "</table>";
+      var div = document.getElementById('dataTableBuh');
+      div.innerHTML = result;
+      document.getElementById('vrabotevse').innerHTML = 'Sotr'
+     }else{
+      var div = document.getElementById('dataTableBuh');
+      div.innerHTML = "Data not found!";
+    } 
+  }
+
+ 
+  
+  function createTableSotData(dataArraySotr,nameSotr,item,countSotr) {
+   
+   dataArraySotr.slice()
+   dataArraySotr.splice(0, 2)
+   dataArraySotr = dataArraySotr.map(x => [x[1],x[2],x[3],x[4]])
+   
+      if(dataArraySotr){
+      var result = "<table class='table table-striped table-sm' style='font-size:0.8em'>"+
+                   "<thead style='white-space: nowrap'><tr>"
+        for(var i=0; i<dataArraySotr[0].length; i++){
+              result += "<th>"+dataArraySotr[0][i]+"</th>";
+          }               
+      result += "</tr>"+"</thead>";
+      for(var i=1; i<dataArraySotr.length; i++) {
+          result += "<tr>";
+          
+          for(var j=0; j<dataArraySotr[i].length; j++){
+              result += "<td>"+dataArraySotr[i][j]+"</td>";
+          }
+          result += "</tr>";
+      }
+      result += "</table>";
+      var div = document.getElementById('dataTableBuh'+item);
+      div.innerHTML = result;
+      document.getElementById('vrabotevse'+item).innerHTML = nameSotr +' - '+ countSotr
+     }else{
+      var div = document.getElementById('dataTableBuh'+item);
+      div.innerHTML = "Data not found!";
+    }
+  }
+
+document.getElementById('buttonBuh').addEventListener('click',buttonClickBuh)
+document.getElementById('buttonNevistavleno').addEventListener('click',startDataNevistvleno)
+document.getElementById('buttonNeoplacheno').addEventListener('click',startDataNeoplacheno)
+document.getElementById('buttonVraboteR').addEventListener('click',startDataVraboteR)
+document.getElementById('buttonVraboteT').addEventListener('click',startDataVraboteT)
+document.getElementById('buttonSotr').addEventListener('click',startDataSotr)
+
+
+
+</script>
