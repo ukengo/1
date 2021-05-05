@@ -1,0 +1,163 @@
+<script>
+	function afterDropDownFirmaReturned(arrayOfArrays){
+    let firma = document.getElementById('firmaArrivalWaste-datalist')
+    arrayOfArrays.forEach((r)=>{
+       const option = document.createElement('option')
+       option.textContent = r[0]
+       firma.appendChild(option)
+    })
+  } 
+  google.script.run.withSuccessHandler(afterDropDownFirmaReturned).getDropDownFirma()
+
+  function afterDropDownStatyaReturned(arrayOfArrays){
+    let firma = document.getElementById('waste-datalist')
+    arrayOfArrays.forEach((r)=>{
+      const option = document.createElement('option')
+      option.textContent = r[0]
+      firma.appendChild(option)
+    })
+  } 
+  google.script.run.withSuccessHandler(afterDropDownStatyaReturned).getDropDownStatya()
+
+  function rowDataRangeWaste(){
+    const date = document.getElementById('date')
+    const summa = document.getElementById('summa')
+    const forma = document.getElementById('forma')
+	  const waste = document.getElementById('waste')
+	  return rowData = 
+      [
+       date.value,
+       summa.value*1,
+       forma.value,
+       waste.value
+      ]
+  }
+  
+  function rowDataRangeArrival(){
+    const date = document.getElementById('date')
+    const summa = document.getElementById('summa')
+    const forma = document.getElementById('forma')
+	  const firmaArrivalWaste = document.getElementById('firmaArrivalWaste')
+		const waste = document.getElementById('waste')
+		return rowData = 
+      [
+       date.value,
+       summa.value*1,
+       forma.value,
+       firmaArrivalWaste.value,
+       waste.value
+      ]
+  } 
+   
+   function buttonClickWaste(){
+    
+    if(!rowDataTermKar()[4]){
+      google.script.run.addNewRowWaste(rowDataRangeWaste())
+      document.getElementById('arriwalwasteatrong').innerHTML = rowDataRangeWaste()
+    }else{
+      google.script.run.insertTermKar(rowDataTermKar())
+      document.getElementById('arriwalwasteatrong').innerHTML = rowDataTermKar()
+      google.script.run.vReestrTerminalKarantin(rowDataTermKar())
+    }
+      buttonClickOchistkaAW()
+      startDataWaste()
+  }   
+ 
+  function buttonClickArrival(){
+    
+    google.script.run.addNewRowArrival(rowDataRangeArrival())
+    document.getElementById('arriwalwasteatrong').innerHTML = rowDataRangeWaste()
+    buttonClickOchistkaAW()
+    startDataArriwal()
+  }   
+
+  function buttonClickOchistkaAW(){
+    document.getElementById('summa').value = ""
+    document.getElementById('firmaArrivalWaste').value = ""
+    document.getElementById('waste').value = ""
+    document.getElementById('termkar').value = ""
+    document.getElementById('sftermkar').value = ""
+  }
+
+  document.getElementById('buttonWaste').addEventListener('click',buttonClickWaste)
+  document.getElementById('buttonArrival').addEventListener('click',buttonClickArrival)
+  document.getElementById('buttonWasteTab').addEventListener('click',startDataWaste)
+  document.getElementById('buttonArrivalTab').addEventListener('click',startDataArriwal)
+  
+  document.getElementById('date').valueAsDate = new Date()
+
+
+function startDataWaste(){
+    google.script.run.withSuccessHandler(createTableArriwalWaste).getLastTenRowsWaste();
+    document.getElementById('vrabotevseArriwalWaste').innerHTML = 'Прочие траты'
+}
+
+function startDataArriwal(){
+    google.script.run.withSuccessHandler(createTableArriwalWaste).getLastTenRowsArriwal();
+    document.getElementById('vrabotevseArriwalWaste').innerHTML = 'Прочие поступления'
+}
+
+function createTableArriwalWaste(dataArray) {
+  const nameTable = dataArray.slice()
+  if(dataArray){
+    var result = "<table class='table table-sm' style='font-size:0.8em'>"
+                   
+      
+      for(var i=1; i<dataArray.length; i++) {
+          result += "<tr>";
+          
+          for(var j=0; j<dataArray[i].length; j++){
+              result += "<td>"+dataArray[i][j]+"</td>";
+          }
+          result += "</tr>";
+      }
+      result += "</table>";
+      var div = document.getElementById('dataTableArriwalWaste');
+      div.innerHTML = result;
+      //document.getElementById('vrabotevse').innerHTML = 'В работе таможня'
+     }else{
+      var div = document.getElementById('dataTableArriwalWaste');
+      div.innerHTML = "Data not found!";
+  }
+}
+/////////////////////////////////////////////////
+//Терминал-карантин
+   function rowDataTermKar(){
+    const date = document.getElementById('date')
+    const summa = document.getElementById('summa')
+    const forma = document.getElementById('forma')
+	  const waste = document.getElementById('waste')
+	  const termkar = document.getElementById('termkar')
+	  const sftermkar = document.getElementById('sftermkar')
+    
+   return rowData = 
+      [
+       date.value,
+       summa.value*1,
+       forma.value,
+       waste.value,
+       termkar.value,
+       sftermkar.value
+      ] 
+  }
+
+
+
+
+//google.script.run.withSuccessHandler(createTableArriwalWaste).getLastTenRowsArriwal();
+
+
+
+
+///////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+</script>
