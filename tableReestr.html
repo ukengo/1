@@ -1,0 +1,125 @@
+<div class="container">
+  <div class="row g-1 mt-1">
+       
+    <h5>Таблица Реестр оформлений</h5>
+
+    <div class="col-auto">
+      <div class="form-label bg-light">
+        <label for="dateendreestr">Дата конец</label>
+        <input type="date" id="dateendreestr" class="form-control" />
+        </div>
+    </div>
+    <div class="col-auto">
+      <div class="form-label bg-light">
+        <label for="datestartreestr">Дата начало</label>
+        <input type="date" id="datestartreestr" class="form-control" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-label bg-light">
+        <label for="firmareestr">Фирма</label>
+        <input type="text" list="firmareestr-datalist" id="firmareestr" class="form-control" />
+        <datalist id="firmareestr-datalist"></datalist>
+      </div>
+    </div> 
+    <div class="col-md-2">
+      <div class="form-label bg-light">
+        <label for="rabotareestr">Работа</label>
+        <input type="text" list="rabotareestr-datalist" id="rabotareestr" class="form-control" />
+        <datalist id="rabotareestr-datalist"></datalist>
+      </div>     
+    </div>
+    <div class="col-md-1">
+      <div class="form-label bg-light">
+        <label for="coderabotareestr">Код работы</label>
+        <input type="text"  id="coderabotareestr"  list="coderabotareestr-datalist" class="form-control" />
+        <datalist id="coderabotareestr-datalist"></datalist>
+      </div> 
+    </div>
+    <div class="col-md-2">
+      <div class="form-label bg-light">
+        <label for="proektreestr" >Проект</label>
+        <input type="number" id="proektreestr" list="proektreestr-datalist"  class="form-control" />
+        <datalist id="proektreestr-datalist"></datalist> 
+      </div> 
+    </div>      
+   <div class="col-auto">
+      <div class="form-label bg-light">
+        <label for="sotrreestr" >Сотрудник</label>
+        <input type="text" id="sotrreestr" list="sotrreestr-datalist" class="form-control "/>
+        <datalist id="sotrreestr-datalist"></datalist> 
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="form-label bg-light">
+        <label for="ispolreestr" >Исполнитель</label>
+        <input type="text" id="ispolreestr" list="ispolreestr-datalist" class="form-control "/>
+        <datalist id="ispolreestr-datalist"></datalist> 
+      </div>
+    </div>      
+    <div class="col-md-2">
+      <div class="form-label bg-light">
+        <label for="sumispolreestr" >Сумма исполнителю</label>
+        <input type="number" id="sumispolreestr" class="form-control "/>
+      </div>    
+    </div>
+    <div class="col-md-2">
+      <div class="form-label bg-light">
+        <label for="sumoplatareestr" >Оплата исполнителю</label>
+        <input type="number" id="sumoplatareestr" class="form-control "/>
+      </div>    
+    </div>
+    <div class="col-md-4">
+      <div class="form-label bg-light">
+        <label for="primreestr" >Примечание к проекту</label>
+        <input type="text" id="primreestr" list="primreestr-datalist" class="form-control "/>
+        <datalist id="primreestr-datalist"></datalist> 
+      </div>    
+    </div>
+ 
+    <div class="col-md-4">
+      <div class="form-label bg-light">
+        <label for="primmoyoreestr" >Примечание мое</label>
+        <input type="text" id="primmoyoreestr" list="primmoyoreestr-datalist" class="form-control "/>
+        <datalist id="primmoyoreestr-datalist"></datalist> 
+      </div>    
+    </div>
+    <div class="col-auto  bg-light">
+       <label for="largestproektreestr">Largest project:</label>
+       <div id="largestproektreestr" ></div>
+    </div>    
+  </div>
+  <div class="row g-1 mt-1">  
+    <div class="col-auto">
+      <div class="form-check bg-light">
+        <label for="issuepartreestr" >Выставлено частично</label>
+        <input type="checkbox" id="issuepartreestr" class="form-check-input "/>
+      </div>    
+    </div><div class="col-auto">
+      <div class="form-check bg-light">
+        <label for="withoutaccountreestr" >Без счета</label>
+        <input type="checkbox" id="withoutaccountreestr" class="form-check-input "/>
+      </div>    
+    </div>
+    <div class="col-auto">
+      <div class="form-check bg-light">
+        <label for="stoppedreestr" >Остановлено</label>
+        <input type="checkbox" id="stoppedreestr" class="form-check-input "/>
+      </div>    
+    </div>
+    
+  </div>
+
+  <div class="row  mb-4 mt-2">     
+    <div class="col-md-4">
+      
+        <input type="button" value="Search" class="btn btn-primary" onclick="SearchRecordsReestr()" />
+     <!--  <input type="button" value="Add Record" class="btn btn-primary" onclick="AddRowReestr()" id="add_button_reestr" /> -->
+        <input type="button" value="Clear Record" class="btn btn-primary" onclick="ClearRecordReestr()" />
+     
+    </div>
+  </div>
+    <div id="rowdatareestr"></div>
+    
+  </div>
+</div>
