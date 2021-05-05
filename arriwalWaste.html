@@ -1,0 +1,77 @@
+<div class="container">
+
+  <div class="row">
+    
+    <div class="col-xl-5">
+
+      <h5>Расход - Приход</h5>
+  
+      <div class="form-group border bg-light mb-1 mt-1">
+        <label for="date">Дата</label>
+        <input type="date" class="form-control" id="date" />
+      </div> 
+
+      <div class="form-group border bg-light mb-1 mt-1">
+        <label for="summa">Сумма</label>
+        <input type="number" class="form-control" id="summa" />
+      </div>
+
+      <div class="form-group border bg-light mb-1 mt-1">
+      <label for="forma">Форма собственности</label>
+        <select class="form-control" id="forma">
+          <option>нал</option>
+          <option>ооо</option>
+          <option>флп</option>
+        </select>
+      </div>
+
+      <div class="form-group border bg-light mb-1 mt-1">
+        <label for="firmaArrivalWaste">Фирма</label>
+        <input type="text" class="form-control" list="firmaArrivalWaste-datalist" id = "firmaArrivalWaste"/>
+        <datalist id="firmaArrivalWaste-datalist"></datalist>
+      </div>
+    
+      <div class="form-group border bg-light mb-1 mt-1">
+          <label for="waste">Статья расхода</label>
+          <input type="text" class="form-control" list="waste-datalist" id = "waste"/>
+          <datalist id="waste-datalist"></datalist>
+      </div>
+
+      <div class="form-group border bg-light mb-1 mt-1">
+          <label for="termkar">Терминал-Карантин</label>
+          <select class="form-control" id="termkar">
+          <option></option>
+          <option>терминал</option>
+          <option>карантин</option>
+        </select>
+      </div>
+
+      <div class="form-group border bg-light mb-1 mt-1">
+          <label for="sftermkar">Сф Терминал-Карантин</label>
+          <input class="form-control" id="sftermkar">
+      </div>
+    </div>
+  </div>
+  
+  <div class="row  mb-2 mt-2">        
+    <div class="col-md-4">   
+      <button type="button" class="btn btn-primary mb-2 mt-2" id="buttonWaste">Расход</button>
+      <button type="button" class="btn btn-primary mb-2 mt-2" id="buttonArrival">Приход</button>
+      <button type="button" class="btn btn-primary mb-2 mt-2" id="buttonWasteTab">Траты</button>
+      <button type="button" class="btn btn-primary mb-2 mt-2" id="buttonArrivalTab">Поступления</button>
+    </div>
+  </div>
+              
+  <div class="col-xl-7">
+    <p id="vrabotevseArriwalWaste" class="h4 mb-4 text-center"></p>
+    <div id="dataTableArriwalWaste" class="table-responsive"></div>
+  </div>
+
+	
+  <!-- <div class="row mb-4 mt-2"> -->
+		
+   
+  <div id='arriwalwasteatrong'></div>
+  <!-- </div> -->
+   
+</div>
