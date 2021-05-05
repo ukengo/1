@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    
+    <!-- Bootstrap CSS -->
+    <?!= include("bootstrap-css") ?>
+
+    <style>
+      .nav-link {
+        cursor: pointer;
+      }
+    </style>
+
+  </head>
+
+  <body>
+
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link" id="nav-newproekt-tab" data-bs-toggle="tab" data-bs-target="#nav-newproekt" type="button" role="tab" aria-controls="nav-newproekt" aria-selected="true">Внесение нового проекта</button>
+        <button class="nav-link" id="nav-arriwalwaste-tab" data-bs-toggle="tab" data-bs-target="#nav-arriwalwaste" type="button" role="tab" aria-controls="nav-arriwalwaste" aria-selected="false">Приход-расход</button>
+        <button class="nav-link" id="nav-privat-tab" data-bs-toggle="tab" data-bs-target="#nav-privat" type="button" role="tab" aria-controls="nav-privat" aria-selected="false">Приват комиссия</button>
+            <button class="nav-link" id="nav-buhgalter-tab" data-bs-toggle="tab" data-bs-target="#nav-buhgalter" type="button" role="tab" aria-controls="nav-buhgalter" aria-selected="false">BUHGALTER</button>
+            <button class="nav-link" id="nav-uprav-tab" data-bs-toggle="tab" data-bs-target="#nav-uprav" type="button" role="tab" aria-controls="nav-uprav" aria-selected="false">тУправление</button>
+            <button class="nav-link" id="nav-fin-tab" data-bs-toggle="tab" data-bs-target="#nav-fin" type="button" role="tab" aria-controls="nav-fin" aria-selected="false">Финансы</button>
+            
+            <button class="nav-link" id="nav-fin-reestr" data-bs-toggle="tab" data-bs-target="#nav-reestr" type="button" role="tab" aria-controls="nav-reestr" aria-selected="false">тРеестр</button>
+          
+          
+      </div>
+    </nav>
+
+    <div class="tab-content" id="nav-tabContent">
+      
+      
+      <div class="tab-pane fade" id="nav-newproekt" role="tabpanel" aria-labelledby="nav-newproekt-tab">
+    <?!= loadNewProektView() ?></div>
+      <div class="tab-pane fade" id="nav-arriwalwaste" role="tabpanel" aria-labelledby="nav-arriwalwaste-tab"><?!=  loadArriwalWasteView() ?></div>
+      <div class="tab-pane fade" id="nav-privat" role="tabpanel" aria-labelledby="nav-privat-tab"><?!= loadAddPrivateCommissionView() ?></div>
+      <div class="tab-pane fade" id="nav-buhgalter" role="tabpanel" aria-labelledby="nav-buhgalter-tab">
+    <?!= loadBuhgalterView() ?></div>
+      <div class="tab-pane fade" id="nav-uprav" role="tabpanel" aria-labelledby="nav-uprav-tab"><?!= loadTableUpravlenieView() ?></div>
+
+    <div class="tab-pane fade" id="nav-fin" role="tabpanel" aria-labelledby="nav-fin-tab"><?!= loadTableFinanceView() ?></div>
+
+    <div class="tab-pane fade" id="nav-reestr" role="tabpanel" aria-labelledby="nav-reestr-tab">
+    <?!= loadTableReestrView() ?></div>
+
+</div>
+
+
+    <div id="app"></div>
+    <?!= include("bootstrap-script") ?>
+    <?!= include("privatCommision-script") ?>
+    <?!= include("arrivalWaste-script") ?>
+    <?!= include("newProekt-script") ?>
+    <?!= include("tableUpravlenie-script") ?>
+    <?!= include("finance-script") ?>
+    <?!= include("tableReestr-script") ?>
+    
+    
+  </body>
+
+</html>
