@@ -1,0 +1,144 @@
+<div class="container">
+  <div class="row">
+		
+    <div class="col-xl-5">
+		
+    	<h5>Внесение нового проекта</h5>
+    
+		
+          <div class="form-group bg-light mb-1 mt-2">
+            <label for="firma">Фирма</label>
+            <input type="text" class="form-control" list="firma-datalist" id = "firma"/>
+            <datalist id="firma-datalist"></datalist>
+          </div>
+
+          <div class="form-group border bg-light mb-1 mt-1">
+            <label for="rabota">Работа</label>
+            <input type="text" class="form-control" list="rabota-datalist" id="rabota" />
+            <datalist id="rabota-datalist"></datalist>
+          </div>
+
+          <div class="form-group bg-light mb-1 mt-2">
+            <label for="code-rabota">Код работы</label>
+            <input type="text" class="form-control" list="code-rabota-datalist" id="code-rabota" />
+            <datalist id="code-rabota-datalist"></datalist>
+          </div>
+
+          <div class="form-group bg-light mb-1 mt-2">
+            <label for="proekt">Проект</label>
+            <input type="number" class="form-control" id="proekt" />
+          </div>
+
+          <div class="form-group bg-light mb-1 mt-2">
+            <label for="sotr">Сотрудник</label>
+            <input type="text" class="form-control" list="sotr-datalist" id="sotr" />
+            <datalist id="sotr-datalist"></datalist>
+          </div>
+
+          <div class="form-group bg-light mb-1 mt-2">
+            <label for="date-nach">Дата начало</label>
+            <input type="date" class="form-control" id="date-nach">
+          </div>
+
+          <div class="form-group bg-light mb-1 mt-2">
+            <label for="date-con">Дата конец</label>
+            <input type="date" class="form-control" id="date-con" />
+          </div>
+
+          <div class="form-group bg-light mb-1 mt-2">
+            <label for="sch">сч</label>
+            <input type="text" class="form-control" id="sch" />
+          </div>
+
+          <div class="form-group bg-light mb-1 mt-2">
+            <label for="prim">Примечание</label>
+            <input type="text" class="form-control" list="prim-datalist" id = "prim"/>
+            <datalist id="prim-datalist"></datalist>
+          </div>
+   	
+			
+          <button type="button" class="btn btn-primary mb-2 mt-2" id="mainButton">&nbsp;&nbsp;&nbsp;&#128209;&nbsp;&nbsp;&nbsp;</button>
+          <button type="button" class="btn btn-primary mb-2 mt-2" id="buttonEnterAndClose">&nbsp;&#128209;&#10060;&nbsp;</button>
+          <button type="button" class="btn btn-primary mb-2 mt-2" id="buttonBezAf">&#128209;без Аф</button>
+          <button type="button" class="btn btn-primary mb-2 mt-2" id="buttonAf">Аф без&#128209;</button>
+          <button type="button" class="btn btn-primary mb-2 mt-2" id="buttonOtOrgana">&#128209;и От органа</button>
+          <button type="button" class="btn btn-primary mb-2 mt-2" id="buttonOchistka">Очистить</button>
+      
+	
+    </div>
+  
+    <div class="col-xl-5">
+     	<h5>Таблица управление</h5>
+      
+          <div class="form-label">
+              <label for="dateenduprav">Дата конец</label>
+              <input type="date" id="dateenduprav" class="form-control" />
+          </div>
+  
+  
+          <div class="form-label">
+              <label for="datestartuprav">Дата начало</label>
+              <input type="date" id="datestartuprav" class="form-control" />
+          </div>
+  
+  
+          <div class="form-label">
+              <label for="firmauprav">Фирма</label>
+              <input type="text"  list="firmauprav-datalist" id="firmauprav" class="form-control" />
+              <datalist id="firmauprav-datalist"></datalist>
+          </div>
+  
+  
+          <div class="form-label">
+              <label for="rabotauprav">Работа</label>
+              <input type="text" list="rabotauprav-datalist" id="rabotauprav" class="form-control" />
+              <datalist id="rabotauprav-datalist"></datalist>
+          </div>     
+  
+          <div class="form-label">
+              <label for="coderabotauprav">Код работы</label>
+              <input type="text" id="coderabotauprav"  list="coderabotauprav-datalist" class="form-control" />
+              <datalist id="coderabotauprav-datalist"></datalist>
+          </div> 
+  
+          <div class="form-label">
+              <label for="proektuprav" >Проект</label>
+              <input type="text" id="proektuprav" list="proektuprav-datalist"  class="form-control" />
+              <datalist id="proektuprav-datalist"></datalist> 
+          </div> 
+  
+          <div class="form-label">
+              <label for="ispoluprav" >Исполнитель</label>
+              <input type="text" id="ispoluprav" list="ispoluprav-datalist" class="form-control "/>
+              <datalist id="ispoluprav-datalist"></datalist> 
+          </div>
+        
+          <div class="form-label">
+              <label for="schuprav" >сч</label>
+              <input type="text" id="schuprav" class="form-control "/>
+          </div>
+      
+          <div class="form-label">
+              <label for="primuprav" >Примечание</label>
+              <input type="text" id="primuprav" list="primuprav-datalist" class="form-control "/>
+              <datalist id="primuprav-datalist"></datalist> 
+          </div>    
+        
+          <div class="col-md-2">
+               <label for="largestproektuprav">Largest project:</label>
+               <div id="largestproektuprav" ></div>
+          </div> 
+
+          <div class="d-grid gap-2 d-sm-block">
+    
+            <input type="button" value="Search" class="btn btn-primary" onclick="SearchRecordsUprav()" />
+            <input type="button" value="Add Record" class="btn btn-primary" onclick="AddRowUprav()" id="add_button_uprav" />
+            <input type="button" value="Clear Record" class="btn btn-primary" onclick="ClearRecordUprav()" />
+        <!--  <div id="display_error" style="color: red" ></div> -->
+          </div>
+ 
+      </div>
+    </div>
+
+  </div>
+</div>
