@@ -18,6 +18,9 @@
     <div class="col-auto">
        <button type="button" class="btn btn-primary mb-2 mt-2" id="buttonSotr" >Sotr</button><br>
     </div>
+    <div class="col-auto">
+       <button type="button" class="btn btn-primary mb-2 mt-2" id="buttonTermSum" >TermSum</button><br>
+    </div>
       <div id="results"></div>
       <div id="results1"></div>
       <div id="results2"></div>
@@ -347,12 +350,22 @@ function startDataNevistvleno(){
     }
   }
 
+//TermSum
+function buttonClickTermSum(){
+  clearDiv()
+  google.script.run.withSuccessHandler(function displayResultsTermSum(dataTermSum){
+      document.getElementById('vrabotevse').innerHTML = dataTermSum
+    }).dataTermSum()
+}
+
+
 document.getElementById('buttonBuh').addEventListener('click',buttonClickBuh)
 document.getElementById('buttonNevistavleno').addEventListener('click',startDataNevistvleno)
 document.getElementById('buttonNeoplacheno').addEventListener('click',startDataNeoplacheno)
 document.getElementById('buttonVraboteR').addEventListener('click',startDataVraboteR)
 document.getElementById('buttonVraboteT').addEventListener('click',startDataVraboteT)
 document.getElementById('buttonSotr').addEventListener('click',startDataSotr)
+document.getElementById('buttonTermSum').addEventListener('click',buttonClickTermSum)
 
 
 
