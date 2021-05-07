@@ -61,11 +61,16 @@ function clearDiv(){
  document.getElementById('dataTableBuh2').innerHTML = '' 
  document.getElementById('dataTableBuh3').innerHTML = '' 
  document.getElementById('dataTableBuh4').innerHTML = '' 
- 
+ document.getElementById('results').innerHTML = '' 
+ document.getElementById('results1').innerHTML = '' 
+ document.getElementById('results2').innerHTML = '' 
+ document.getElementById('results3').innerHTML = '' 
+ document.getElementById('results4').innerHTML = '' 
 }
 
 //BUHGALTER
 function buttonClickBuh(){
+  clearDiv()
     google.script.run.withSuccessHandler(displayResults).buhgalterTable()
   }
 
