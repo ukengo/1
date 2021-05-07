@@ -359,8 +359,24 @@ function startDataNevistvleno(){
 function buttonClickTermSum(){
   clearDiv()
   google.script.run.withSuccessHandler(function displayResultsTermSum(dataTermSum){
-      document.getElementById('vrabotevse').innerHTML = dataTermSum
-    }).dataTermSum()
+      var result = "<table class='table table-sm' style='font-size:0.8em'>"
+      result += "<tr>";
+      result += "<td>Терминал Новопироговская:</td>";
+      result += "</tr>";
+      result += "<tr>";
+      result += "<td>"+dataTermSum[0]+"</td>";
+      result += "</tr>";
+      result += "<tr>";
+      result += "<td>"+"остаток " + dataTermSum[1] + " грн."+"</td>";
+      result += "</tr>";
+      result += "</table>";
+      
+      document.getElementById('vrabotevse').innerHTML = result
+      /* document.getElementById('vrabotevse1').innerHTML = dataTermSum[0]
+      document.getElementById('vrabotevse2').innerHTML = 'остаток денег: '
+      document.getElementById('vrabotevse3').innerHTML = dataTermSum[1] + 'грн.' */
+
+}).dataTermSum()
 }
 
 
