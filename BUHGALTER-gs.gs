@@ -122,3 +122,28 @@ function sendMessage(sText, chatID) {
     }
   })
 }
+
+//TermSum
+function dataTermSum(){
+  console.log(sheet = SpreadsheetApp.openById('1dY62dP8R3iTwyoNLvEeEJn5thoC-56Pb4ZNtZJsHGu4')
+    .getSheetByName('bot').getRange(3,1).getValue())
+  return sheet = SpreadsheetApp.openById('1dY62dP8R3iTwyoNLvEeEJn5thoC-56Pb4ZNtZJsHGu4')
+    .getSheetByName('bot').getRange(3,1).getValue()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
