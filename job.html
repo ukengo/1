@@ -1,0 +1,84 @@
+<div class="container">
+	<div class="row g-1 mt-1 ">
+
+		<h5>job</h5>
+	
+  	<div class="col-md-2">
+			<div class="form-label bg-light">
+				<label for="proektjob">Проект</label>
+				<input type="number" id="proektjob" list="proektjob-datalist"  class="form-control" />
+				<datalist id="proektjob-datalist"></datalist>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="form-label bg-light">
+				<label for="rabotajob">Работа</label>
+				<input type="text" id="rabotajob" list="rabotajob-datalist"  class="form-control" />
+				<datalist id="rabotajob-datalist"></datalist>
+			</div>
+		</div>
+
+		<div class="col-md-2">
+			<div class="form-label bg-light">
+				<label for="datestartjob">Дата начало</label>
+				<input type="date" id="datestartjob" class="form-control" />
+      </div>
+	 	</div>
+     
+		<div class="col-md-2">
+			<div class="form-label bg-light">
+					<label for="dateendjob">Дата конец</label>
+					<input type="date" id="dateendjob" class="form-control" />
+      </div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="form-label bg-light">
+					<label for="opisaniejob">Описание</label>
+					<input type="text" id="opisaniejob" list="opisaniejob-datalist"  class="form-control" />
+				  <datalist id="opisaniejob-datalist"></datalist>
+      </div>
+		</div>
+    	<div class="col-md-4">
+      	<div class="form-label bg-light">
+						<label for="idjob">id</label>
+						<input type="text" id="idjob" class="form-control" />
+         </div>
+    </div>
+  
+  </div>
+
+</div>
+
+<div class="container">
+  <div class="row  mb-2 mt-2">
+  
+    <div class="col-md-5">
+      <div class="form-label bg-light">
+        <label for="firmajob">Фирма</label>
+        <input type="text" id="firmajob" list="firmajob-datalist"  class="form-control" />
+        <datalist id="firmajob-datalist"></datalist>
+      </div>
+    </div>
+
+    <div class="col-auto">
+      <div class="form-check bg-light">
+        <label for="originaljob" >Оригинал</label>
+        <input type="checkbox" id="originaljob" class="form-check-input "/>
+      </div>   
+    </div>
+  </div>
+     
+  <div class="row  mb-2 mt-2">
+    <div class="col-md-4">
+      <input type="button" value="Search" class="btn btn-primary" onclick="SearchRecordsjob()" />
+      <input type="button" value="Add Record" class="btn btn-primary" onclick="AddRowjob()" id="add_button_job" />
+      <input type="button" value="Clear Record" class="btn btn-primary" onclick="ClearRecordjob()" />
+    </div>
+  </div>
+  <div class="row  mb-4 mt-2">
+    <div id="rowdatajob"></div>
+  </div>
+
+</div>
