@@ -1,0 +1,196 @@
+<script>
+      function afterDropDownProektReturnedJob(arrayOfArrays){
+        let firma = document.getElementById('proektjob-datalist')
+        arrayOfArrays.forEach((r)=>{
+        const option = document.createElement('option')
+        option.textContent = r[0]
+        firma.appendChild(option)
+        })
+      }
+      google.script.run.withSuccessHandler(afterDropDownProektReturnedJob).getDropDownArrayProektJob()
+
+      function afterDropDownRabotaReturnedJob(arrayOfArrays){
+        let firma = document.getElementById('rabotajob-datalist')
+        arrayOfArrays.forEach((r)=>{
+        const option = document.createElement('option')
+        option.textContent = r[0]
+        firma.appendChild(option)
+        })
+      } 
+      google.script.run.withSuccessHandler(afterDropDownRabotaReturnedJob).getDropDownArrayRabotaJob()
+
+function afterDropDownOpisanieReturnedJob(arrayOfArrays){
+        let firma = document.getElementById('opisaniejob-datalist')
+        arrayOfArrays.forEach((r)=>{
+        const option = document.createElement('option')
+        option.textContent = r[0]
+        firma.appendChild(option)
+        })
+      } 
+      google.script.run.withSuccessHandler(afterDropDownOpisanieReturnedJob).getDropDownArrayOpisanieJob()
+
+  function afterDropDownFirmaReturnedJob(arrayOfArrays){
+        let firma = document.getElementById('firmajob-datalist')
+        arrayOfArrays.forEach((r)=>{
+        const option = document.createElement('option')
+        option.textContent = r[0]
+        firma.appendChild(option)
+        })
+      } 
+      google.script.run.withSuccessHandler(afterDropDownFirmaReturnedJob).getDropDownArrayFirmaJob()
+
+     
+      function SearchRecordsjob(){
+      var proektJob = document.getElementById("proektjob").value;
+      var rabotaJob = document.getElementById("rabotajob").value;
+      var datestartJob = document.getElementById("datestartjob").value;
+      var dateendJob = document.getElementById("dateendjob").value;
+      var opisanieJob = document.getElementById("opisaniejob").value;
+      var idJob = document.getElementById("idjob").value;
+      var firmaJob = document.getElementById("firmajob").value;
+      var originalJob = document.getElementById("originaljob").checked;
+      var row_number_job = 0;
+
+      google.script.run.withSuccessHandler(function(ar) 
+      {
+      
+         var displayTable = '<form>';
+          displayTable += '<table class=\"table table-bordered border-primary mb-2 mt-2\" id=\"mainTablejob\" >';
+          displayTable += "<tr>";
+          displayTable += "<th></th>";
+          
+          displayTable += "</tr>";
+
+        ar.forEach(function(item, index) 
+        {
+         
+          displayTable += "<tr id=\"ROWNUMBER:"+ row_number_job +"\" >";
+
+          displayTable += "<td>"
+          displayTable += "<div class=\"row\">"
+          
+          displayTable += "<div class=\"col-md-2\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_proektjob\">Проект</label>  "; 
+          displayTable += "<input type=\"number\" id=\"up_proektjob"+ row_number_job +"\" value=\""+item[0]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-4\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_rabotajob\">Работа</label> ";
+          displayTable += "<input type=\"text\" id=\"up_rabotajob"+ row_number_job +"\" value=\""+item[1]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-2\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_datestartjob\">Дата начало</label> ";
+          displayTable += "<input type=\"date\" id=\"up_datestartjob"+ row_number_job +"\" value=\""+item[2]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-2\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_dateendjob\">Дата конец</label> "; 
+          displayTable += "<input type=\"date\" id=\"up_dateendjob"+ row_number_job +"\" value=\""+item[3]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-6\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_opisaniejob\">Описание</label> "; 
+          displayTable += "<input type=\"text\" id=\"up_opisaniejob"+ row_number_job +"\" value=\""+item[4]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-1\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_idjob\">ID</label> "; 
+          displayTable += "<input type=\"number\" id=\"up_idjob"+ row_number_job +"\" value=\""+item[6]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-5\">"
+          displayTable += "<div class=\"form-label bg-light\">"
+          displayTable += "<label for=\"up_firmajob\">Фирма</label> "; 
+          displayTable += "<input type=\"text\" disabled id=\"up_firmajob"+ row_number_job +"\" value=\""+item[7]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-auto\">"
+          displayTable += "<div class=\"form-check bg-light\">" 
+          displayTable += "<label for=\"up_originaljob\">Оригинал</label> ";
+          displayTable += "<input type=\"checkbox\" id=\"up_originaljob"+ row_number_job +"\" value=\""+item[5]+"\" class=\"form-check-input\" ";
+          displayTable += checked(item[5])
+          displayTable += "/> </div></div> ";
+
+          displayTable += "<div class=\"col-md-1\">"
+          displayTable += "<div class=\"form-label\">"
+          
+          displayTable += "<input type=\"button\" id=\"update_button_job"+ row_number_job +"\" value=\"Update\" class=\"btn btn-primary\" ";
+          displayTable += "onclick=\"UpdateRecordjob("+row_number_job+")\" /></div></div> ";
+          displayTable += "<div></div> ";
+
+          displayTable += "</tr>";
+          row_number_job++;    
+        });
+
+        displayTable += '</table></form>';     
+        document.getElementById("rowdatajob").innerHTML = displayTable;
+
+      }).searchRecordsJob(proektJob, rabotaJob, datestartJob, dateendJob, opisanieJob, idJob, firmaJob, originalJob);
+    }
+
+  function ClearRecordjob()
+    {
+      document.getElementById("proektjob").value = '';
+      document.getElementById("rabotajob").value = '';
+      document.getElementById("datestartjob").value = '';
+      document.getElementById("dateendjob").value = '';
+      document.getElementById("opisaniejob").value = '';
+      document.getElementById("idjob").value = '';
+      document.getElementById("firmajob").value = '';
+      document.getElementById("originaljob").checked = false;
+    }
+
+  function UpdateRecordjob(row_number_job)
+    {
+      document.getElementById("update_button_job"+row_number_job).disabled = true;
+     
+      var proektJob = document.getElementById("up_proektjob"+row_number_job).value;
+      var rabotaJob = document.getElementById("up_rabotajob"+row_number_job).value;
+      var datestartJob = document.getElementById("up_datestartjob"+row_number_job).value;
+      var dateendJob = document.getElementById("up_dateendjob"+row_number_job).value;
+      var opisanieJob = document.getElementById("up_opisaniejob"+row_number_job).value;
+      var idJob = document.getElementById("up_idjob"+row_number_job).value;
+      var firmaJob = document.getElementById("up_firmajob"+row_number_job).value;
+      var originalJob = document.getElementById("up_originaljob"+row_number_job).checked;
+      
+      google.script.run.withSuccessHandler(function(return_string) 
+      {
+          document.getElementById("update_button_job"+row_number_job).disabled = false;
+          
+      }).UpdateRecordjobGs(proektJob, rabotaJob, datestartJob, dateendJob, opisanieJob, idJob, firmaJob, originalJob);
+    }
+
+    function AddRowjob()
+    {
+      document.getElementById("add_button_job").disabled = true;
+      var proektJob = document.getElementById("proektjob").value;
+      var rabotaJob = document.getElementById("rabotajob").value;
+      var datestartJob = document.getElementById("datestartjob").value;
+      var dateendJob = document.getElementById("dateendjob").value;
+      var opisanieJob = document.getElementById("opisaniejob").value;
+      var idJob = document.getElementById("idjob").value;
+      var firmaJob = document.getElementById("firmajob").value;
+      var originalJob = document.getElementById("originaljob").checked;
+  
+        google.script.run.withSuccessHandler(function(return_string) 
+        {
+          //ClearRecordjob()
+      document.getElementById("proektjob").value = proektJob;
+          SearchRecordsjob();
+          
+          document.getElementById("add_button_job").disabled = false;
+        }).AddRecordjobGs(proektJob, rabotaJob, datestartJob, dateendJob, opisanieJob, idJob, firmaJob, originalJob); 
+
+      }
+
+
+  function checked(item){
+    if(item === 1){
+      return 'checked'
+    }else{
+      return ''
+    }
+
+  }
+
+</script>
