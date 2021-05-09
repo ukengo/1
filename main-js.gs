@@ -985,7 +985,7 @@ function UpdateRecordReestrGs(dateendReestr,datestartReestr, firmaReestr, rabota
   for (i = 0; i < table_values_ree.length; i++) {
     if (table_values_ree[i][5] == proektReestr) {
 
-      console.log(primMoyoReestr)
+     
       dataBase.getRange(i + 2, 16).setValue(ispolReestr);
       dataBase.getRange(i + 2, 17).setValue(sumispolReestr);
       dataBase.getRange(i + 2, 18).setValue(sumoplataReestr);
@@ -998,7 +998,188 @@ function UpdateRecordReestrGs(dateendReestr,datestartReestr, firmaReestr, rabota
   return 'SUCCESS';
 }
 
+///////////////////////////////////////////////////
+// job
 
+function getDropDownArrayProektJob() {
+  return dataSpiskiReestr.getRange(2, 20, dataSpiskiReestr.getLastRow() - 1, 1).getValues().filter(r => r != '')
+}
+
+function getDropDownArrayRabotaJob() {
+  return dataSpiskiReestr.getRange(2, 21, dataSpiskiReestr.getLastRow() - 1, 1).getValues().filter(r => r != '')
+}
+
+function getDropDownArrayOpisanieJob() {
+  return dataSpiskiReestr.getRange(2, 22, dataSpiskiReestr.getLastRow() - 1, 1).getValues().filter(r => r != '')
+}
+
+function getDropDownArrayFirmaJob() {
+  return dataSpiskiReestr.getRange(2, 5, dataSpiskiReestr.getLastRow() - 1, 1).getValues().filter(r => r != '')
+}
+
+function searchRecordsJob(proektJob, rabotaJob, datestartJob, dateendJob, opisanieJob, idJob, firmaJob, originalJob) {
+
+  var returnRows = [];
+  var allRecords = getRecordsJob();
+  
+  allRecords.forEach(function (value, index) {
+
+    var evalRows = [];
+
+    if (proektJob != '') {
+      if (value[0] == proektJob) {
+        evalRows.push('yes');
+      } else {
+        evalRows.push('no');
+      }
+    }
+    else {
+      evalRows.push('yes');
+    }
+
+    if (rabotaJob != '') {
+      if (value[1] == rabotaJob) {
+        evalRows.push('yes');
+      } else {
+        evalRows.push('no');
+      }
+    }
+    else {
+      evalRows.push('yes');
+    }
+
+    if (datestartJob != '') {
+      if (Utilities.formatDate(new Date(value[2]), 'Europe/Kiev', 'dd.MM.yyyy') == Utilities.formatDate(new Date(datestartJob), 'Europe/Kiev', 'dd.MM.yyyy')) {
+        evalRows.push('yes');
+      } else {
+        evalRows.push('no');
+      }
+    }
+    else {
+      evalRows.push('yes');
+    }
+
+    if (dateendJob != '') {
+      if (Utilities.formatDate(new Date(value[3]), 'Europe/Kiev', 'dd.MM.yyyy') == Utilities.formatDate(new Date(dateendJob), 'Europe/Kiev', 'dd.MM.yyyy')) {
+        evalRows.push('yes');
+      } else {
+        evalRows.push('no');
+      }
+    }
+    else {
+      evalRows.push('yes');
+    }
+
+    if (opisanieJob != '') {
+      if (value[4] == opisanieJob) {
+        evalRows.push('yes');
+      } else {
+        evalRows.push('no');
+      }
+    }
+    else {
+      evalRows.push('yes');
+    }
+
+    if (originalJob != '') {
+      if (value[5] == originalJob) {
+        evalRows.push('yes');
+      } else {
+        evalRows.push('no');
+      }
+    }
+    else {
+      evalRows.push('yes');
+    }
+
+    if (idJob != '') {
+      if (value[6] == idJob) {
+        evalRows.push('yes');
+      } else {
+        evalRows.push('no');
+      }
+    }
+    else {
+      evalRows.push('yes');
+    }
+
+    if (firmaJob != '') {
+      if (value[7] == firmaJob) {
+        evalRows.push('yes');
+      } else {
+        evalRows.push('no');
+      }
+    }
+    else {
+      evalRows.push('yes');
+    }
+
+    if (evalRows.indexOf("no") == -1) {
+  
+      returnRows.push(value);
+
+    }
+
+  });
+
+  return returnRows;
+}
+
+function getRecordsJob() {
+  const data = dataJob.getRange('A99:J').getValues().slice(1)
+  const dataFilterMap = data.map(x => [x[0], x[1], getDateFin(x[2]), getDateFin(x[3]), x[4], x[5], x[6], x[9]])
+  console.log(dataFilterMap)
+  return dataFilterMap;
+}
+
+function getDateFin(date) {
+  if (date) {
+    return Utilities.formatDate(new Date(date), 'Europe/Kiev', 'yyyy-MM-dd')
+  } else {
+    return ''
+  }
+}
+
+function UpdateRecordjobGs(proektJob, rabotaJob, datestartJob, dateendJob, opisanieJob, idJob, firmaJob, originalJob) {
+
+  var getLastRow = dataJob.getDataRange().getValues().length;
+  var table_values = dataJob.getRange(100, 1, getLastRow, 10).getValues();
+  
+  let originalJobIf
+  if(originalJob === false){
+    originalJobIf = ''
+  }else{
+    originalJobIf = 1
+  }
+
+  for (i = 0; i < table_values.length; i++) {
+    if (table_values[i][6] == idJob) {
+      dataJob.getRange(i + 100, 1).setValue(proektJob);
+      dataJob.getRange(i + 100, 2).setValue(rabotaJob);
+      dataJob.getRange(i + 100, 3).setValue(datestartJob);
+      dataJob.getRange(i + 100, 4).setValue(dateendJob);
+      dataJob.getRange(i + 100, 5).setValue(opisanieJob);
+      dataJob.getRange(i + 100, 6).setValue(originalJobIf);
+      dataJob.getRange(i + 100, 7).setValue(idJob);
+    }
+  }
+  return 'SUCCESS';
+}
+
+function AddRecordjobGs(proektJob, rabotaJob, datestartJob, dateendJob, opisanieJob, idJob, firmaJob, originalJob) {
+  dataJob.insertRowAfter(99);
+  //формируем id
+  const idJobId = new Date().getTime();
+  let originalJobIf
+  if(originalJob === false){
+    originalJobIf = ''
+  }else{
+    originalJobIf = 1
+  }
+  const data = [[proektJob, rabotaJob, datestartJob, dateendJob, opisanieJob, originalJobIf, idJobId]]
+
+  dataJob.getRange('A100:G100').setValues(data);
+}
 
 
 
