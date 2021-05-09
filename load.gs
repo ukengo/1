@@ -20,6 +20,7 @@ const dataWaste = SSREESTR.getSheetByName("Прочие траты")
 const dataBase = SSREESTR.getSheetByName("База")
 const dataTerminal = SSTERMINAL.getSheetByName("Оплата")
 const dataKarantin = SSKARANTIN.getSheetByName("Оплата")
+const dataJob = SSREESTR.getSheetByName("job")
 
 function doGet() {
   return HtmlService.createTemplateFromFile('main-HTML').evaluate()
