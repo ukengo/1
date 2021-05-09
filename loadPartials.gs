@@ -31,3 +31,7 @@ function loadTableFinanceView() {
 function loadTableReestrView() {
   return loadPartialHTML_('tableReestr');
 }
+
+function loadTableJobView() {
+  return loadPartialHTML_('job');
+}
