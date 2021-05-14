@@ -290,7 +290,7 @@ function searchRecordsUprav(dateendUprav, datestartUprav, firmaUprav, rabotaUpra
     var evalRows = [];
 
     if (dateendUprav != '') {
-      if (value[0] == Utilities.formatDate(new Date(dateendUprav), 'Europe/Kiev', 'dd.MM.yyyy')) {
+      if (Utilities.formatDate(new Date(value[0]), 'Europe/Kiev', 'dd.MM.yyyy') == Utilities.formatDate(new Date(dateendUprav), 'Europe/Kiev', 'dd.MM.yyyy')) {
         evalRows.push('true');
       } else {
         evalRows.push('false');
@@ -301,7 +301,7 @@ function searchRecordsUprav(dateendUprav, datestartUprav, firmaUprav, rabotaUpra
     }
 
     if (datestartUprav != '') {
-      if (value[1] == Utilities.formatDate(new Date(datestartUprav), 'Europe/Kiev', 'dd.MM.yyyy')) {
+      if (Utilities.formatDate(new Date(value[1]), 'Europe/Kiev', 'dd.MM.yyyy') == Utilities.formatDate(new Date(datestartUprav), 'Europe/Kiev', 'dd.MM.yyyy')) {
         evalRows.push('true');
       } else {
         evalRows.push('false');
@@ -518,7 +518,7 @@ function searchRecordsFin(proektFin, summaFin, priznakFin, dateoplFin, sfFin, pr
     }
 
     if (dateoplFin != '') {
-      if (value[3] == Utilities.formatDate(new Date(dateoplFin), 'Europe/Kiev', 'dd.MM.yyyy')) {
+      if (Utilities.formatDate(new Date(value[3]), 'Europe/Kiev', 'dd.MM.yyyy') == Utilities.formatDate(new Date(dateoplFin), 'Europe/Kiev', 'dd.MM.yyyy')) {
         evalRows.push('true');
       } else {
         evalRows.push('false');
@@ -774,7 +774,7 @@ function searchRecordsReestrGs(dateendReestr,datestartReestr, firmaReestr, rabot
 
   var returnRows = [];
   var allRecords = getRecordsReestr();
-
+  
   allRecords.forEach(function (value, index) {
 
     var evalRows = [];
@@ -951,6 +951,7 @@ function searchRecordsReestrGs(dateendReestr,datestartReestr, firmaReestr, rabot
   });
 console.log(returnRows)
   return returnRows;
+  
 }
 
 
@@ -1128,7 +1129,7 @@ function searchRecordsJob(proektJob, rabotaJob, datestartJob, dateendJob, opisan
 function getRecordsJob() {
   const data = dataJob.getRange('A99:J').getValues().slice(1)
   const dataFilterMap = data.map(x => [x[0], x[1], getDateFin(x[2]), getDateFin(x[3]), x[4], x[5], x[6], x[9]])
-  console.log(dataFilterMap)
+  
   return dataFilterMap;
 }
 
@@ -1181,7 +1182,105 @@ function AddRecordjobGs(proektJob, rabotaJob, datestartJob, dateendJob, opisanie
   dataJob.getRange('A100:G100').setValues(data);
 }
 
+function NaOtdachuJobGs(proektJob, dateendJob, opisanieJob, firmaJob){
+  const url = 'https://docs.google.com/spreadsheets/d/1GLczVuSi-wbQeOb2IvPgZ0KLm9xXakPLb2pqBO2EqjM/edit#gid=0';
+  const sheetNaOtdachu = SpreadsheetApp.openByUrl(url).getSheetByName('На отдачу');
+  let sheetNaOtdachuValue = sheetNaOtdachu.getDataRange().getValues();// все данные из таблицы На отдачу
+  
+  // открываем таблицу На отдачу
+   //const html = "<script>window.open('" + url + "');google.script.host.close();</script>";
+  // const userInterface = HtmlService.createHtmlOutput(html).setWidth(1).setHeight(1);
+  // SpreadsheetApp.getUi().showModalDialog(userInterface, ' ')
 
+    // находим последнюю заполненную строку
+  let sheetNaOtdachuLastRow = 0;
+  sheetNaOtdachuValue.forEach(function (x, index) {
+    if (x[4] != '') {
+      sheetNaOtdachuLastRow = index + 1;
+    }
+  })
+  let dataNomer = opisanieJob;//номера работ из job
+  let dataProekt = proektJob; //проекты работ из job
+  let dataFirma = firmaJob; //фирма работ из job
+  let dataDate
+  if(dataDate){
+    dataDate = Utilities.formatDate(new Date(dateendJob), 'Europe/Kiev', 'dd.MM.yyyy');//даты работ из job 
+  }else{
+    dataDate = ''
+  }
+  
+ 
+  // работа с датой
+  // let dataDate =
+  //     ((dataDate.getDate()) < 10 ? '0' : '') + (dataDate.getDate()) + '.'
+  //     + ((dataDate.getMonth() + 1) < 10 ? '0' : '') + (dataDate.getMonth() + 1) + '.'
+  //     + dataDate.getFullYear();
+    // конец работы с датой
+
+    // проверяем, была ли фирма на отдаче
+    let firmaPredid = sheetNaOtdachuValue.filter(row => row[1] == dataFirma);
+    //берем последнюю ячейку из Даты отдачи
+    let firmaPredid7Pop = firmaPredid.map(row => row[7]).pop();
+    // если фирмы на отдаче не было или последняя ячейка из Даты отдачи не нулевая
+    if (firmaPredid == '' || firmaPredid7Pop != '') {
+      //вставляем новый id
+      var id = sheetNaOtdachu.getRange(1, 1).getValue() + 1;
+    } else {
+      // иначе дублируем старый id
+      var id = firmaPredid.map(row => row[0]).pop();
+    }
+ 
+    
+    if (dataDate) {
+    var data = [].concat([[id, dataFirma, '', new Date(), dataNomer + " от " + dataDate, dataProekt, 'на отдачу', '']]);
+    } else {
+      var data = [].concat([[id, dataFirma, '', new Date(), dataNomer + dataDate, dataProekt, 'на отдачу', '']]);
+    }
+
+
+    // проверяем, заносили ли уже этот документ на отдачу
+    let filterDadaNumber = sheetNaOtdachuValue.filter(row => row[4] == (data[0][4]));
+
+    if (filterDadaNumber != '') {
+      // let ui = SpreadsheetApp.getUi();
+      // let response = ui.alert('Цей документ вже вносився. Продовжити?', ui.ButtonSet.YES_NO);
+      // if (response == ui.Button.NO) {
+        return 'povtor';
+   //   }
+    }
+    sheetNaOtdachu.getRange(sheetNaOtdachuLastRow + 1, 1, 1, 8).setValues(data);
+    numProekt();
+}
+
+//нумерация новых проектов
+function numProekt() {
+  const app = SpreadsheetApp;
+  const url = 'https://docs.google.com/spreadsheets/d/1GLczVuSi-wbQeOb2IvPgZ0KLm9xXakPLb2pqBO2EqjM/edit#gid=0';
+  const sheetSpiski = app.openByUrl(url).getSheetByName('Списки');
+  const sheetNaOtdachu = app.openByUrl(url).getSheetByName('На отдачу');
+  const lrSheetNaOtdachu = getLastRowFunc(sheetNaOtdachu, 1);
+  const lrSheetSpiski = getLastRowFunc(sheetSpiski, 1);
+
+  const firma = sheetNaOtdachu.getRange(lrSheetNaOtdachu, 2).getValue();
+
+  if (sheetNaOtdachu.getRange(lrSheetNaOtdachu, 3).getValue() == '') {
+    sheetSpiski.getRange(lrSheetSpiski + 1, 1).setValue(firma);
+    sheetSpiski.getRange(lrSheetSpiski + 1, 2).setValue(sheetSpiski.getRange(lrSheetSpiski, 2).getValue() + 1);
+  }
+  //console.log(sheetSpiski.getRange(lrSheetSpiski, 2).getValue() + 1)
+}
+
+//Сниппет для определения последней заполненной строки
+function getLastRowFunc(sheet, column) {
+  var data = sheet.getDataRange().getValues();
+  var lr = 0;
+  data.forEach(function (x, index) {
+    if (x[column - 1] != '') {
+      lr = index;
+    }
+  })
+  return lr + 1
+}
 
 
 
