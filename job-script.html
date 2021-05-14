@@ -108,7 +108,7 @@ function afterDropDownOpisanieReturnedJob(arrayOfArrays){
           displayTable += "<div class=\"form-check bg-light\">" 
           displayTable += "<label for=\"up_originaljob\">Оригинал</label> ";
           displayTable += "<input type=\"checkbox\" id=\"up_originaljob"+ row_number_job +"\" value=\""+item[5]+"\" class=\"form-check-input\" ";
-          displayTable += checked(item[5])
+          displayTable += check(item[5])
           displayTable += "/> </div></div> ";
 
           displayTable += "<div class=\"col-md-1\">"
@@ -116,7 +116,14 @@ function afterDropDownOpisanieReturnedJob(arrayOfArrays){
           
           displayTable += "<input type=\"button\" id=\"update_button_job"+ row_number_job +"\" value=\"Update\" class=\"btn btn-primary\" ";
           displayTable += "onclick=\"UpdateRecordjob("+row_number_job+")\" /></div></div> ";
-          displayTable += "<div></div> ";
+         // displayTable += "<div></div> ";
+
+          displayTable += "<div class=\"col-md-1\">"
+          displayTable += "<div class=\"form-label\">"
+          displayTable += "<input type=\"button\" id=\"naotdachu_button_job"+ row_number_job +"\" value=\"Na otdachu\" class=\"btn btn-primary\" ";
+          displayTable += "onclick=\"NaOtdachuJob("+row_number_job+")\" /></div></div> ";
+          displayTable += "<div class=\"text-danger\" id=\"returnjob" + row_number_job + "\">";
+          displayTable += "</div><div></div>";
 
           displayTable += "</tr>";
           row_number_job++;    
@@ -158,9 +165,9 @@ function afterDropDownOpisanieReturnedJob(arrayOfArrays){
           document.getElementById("update_button_job"+row_number_job).disabled = false;
           
       }).UpdateRecordjobGs(proektJob, rabotaJob, datestartJob, dateendJob, opisanieJob, idJob, firmaJob, originalJob);
-    }
+  }
 
-    function AddRowjob()
+  function AddRowjob()
     {
       document.getElementById("add_button_job").disabled = true;
       var proektJob = document.getElementById("proektjob").value;
@@ -181,16 +188,37 @@ function afterDropDownOpisanieReturnedJob(arrayOfArrays){
           document.getElementById("add_button_job").disabled = false;
         }).AddRecordjobGs(proektJob, rabotaJob, datestartJob, dateendJob, opisanieJob, idJob, firmaJob, originalJob); 
 
-      }
+  }
 
 
-  function checked(item){
+  function check(item){
     if(item === 1){
       return 'checked'
     }else{
       return ''
     }
 
+  }
+
+  function NaOtdachuJob(row_number_job)
+    {
+      document.getElementById("naotdachu_button_job"+row_number_job).disabled = true;
+      var proektJob = document.getElementById("up_proektjob"+row_number_job).value;
+      var dateendJob = document.getElementById("up_dateendjob"+row_number_job).value;
+      var opisanieJob = document.getElementById("up_opisaniejob"+row_number_job).value;
+      var firmaJob = document.getElementById("up_firmajob"+row_number_job).value;
+      google.script.run.withSuccessHandler(function(return_string) 
+       {
+          if(return_string){
+            document.getElementById("returnjob"+row_number_job).innerHTML = 'Данные уже вносились'
+          }else{
+            window.open('https://docs.google.com/spreadsheets/d/1GLczVuSi-wbQeOb2IvPgZ0KLm9xXakPLb2pqBO2EqjM/edit#gid=0')
+            document.getElementById("returnjob"+row_number_job).innerHTML = ''
+          }
+          
+          document.getElementById("naotdachu_button_job"+row_number_job).disabled = false;
+          
+      }).NaOtdachuJobGs(proektJob, dateendJob, opisanieJob, firmaJob);
   }
 
 </script>
