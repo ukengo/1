@@ -71,6 +71,7 @@ function clearDiv(){
 //BUHGALTER
 function buttonClickBuh(){
   clearDiv()
+  document.getElementById('dataTableBuh').innerHTML = "Идет поиск...";
     google.script.run.withSuccessHandler(displayResults).buhgalterTable()
   }
 
@@ -103,23 +104,28 @@ function displayResults(dataArray) {
 
 function startDataNevistvleno(){
     clearDiv()
+    document.getElementById('dataTableBuh').innerHTML = "Идет поиск...";
     google.script.run.withSuccessHandler(createTableNevistavleno).startDataNevistvleno();
   }
   function startDataNeoplacheno(){
     clearDiv()
+    document.getElementById('dataTableBuh').innerHTML = "Идет поиск...";
     google.script.run.withSuccessHandler(createTableNeoplacheno).startDataNeoplacheno();
   }
   function startDataVraboteR(){
     clearDiv()
+    document.getElementById('dataTableBuh').innerHTML = "Идет поиск...";
     google.script.run.withSuccessHandler(createTableVrboteR).startDataVraboteR();
   }
   function startDataVraboteT(){
     clearDiv()
+    document.getElementById('dataTableBuh').innerHTML = "Идет поиск...";
     google.script.run.withSuccessHandler(createTableVrboteT).startDataVraboteT();
   }
   
   function startDataSotr(){
     clearDiv()
+    document.getElementById('dataTableBuh').innerHTML = "Идет поиск...";
     startDataSotrCount()
     startDataSotrDataLazorenko()
     startDataSotrDataDilanjan()
@@ -358,6 +364,7 @@ function startDataNevistvleno(){
 //TermSum
 function buttonClickTermSum(){
   clearDiv()
+  document.getElementById('dataTableBuh').innerHTML = "Идет поиск...";
   google.script.run.withSuccessHandler(function displayResultsTermSum(dataTermSum){
       var result = "<table class='table table-sm' style='font-size:0.8em'>"
       result += "<tr>";
@@ -371,7 +378,7 @@ function buttonClickTermSum(){
       result += "</tr>";
       result += "</table>";
       
-      document.getElementById('vrabotevse').innerHTML = result
+      document.getElementById('dataTableBuh').innerHTML = result
       /* document.getElementById('vrabotevse1').innerHTML = dataTermSum[0]
       document.getElementById('vrabotevse2').innerHTML = 'остаток денег: '
       document.getElementById('vrabotevse3').innerHTML = dataTermSum[1] + 'грн.' */
