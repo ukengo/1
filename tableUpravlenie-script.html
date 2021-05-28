@@ -76,11 +76,11 @@
       var rabotaUprav = document.getElementById("rabotauprav").value;
       var coderabotaUprav = document.getElementById("coderabotauprav").value;
       var proektUprav = document.getElementById("proektuprav").value;
-      var ispolUprav = document.getElementById("ispoluprav").value;
+      var sotrUprav = document.getElementById("sotruprav").value;
       var schUprav = document.getElementById("schuprav").value;
       var primUprav = document.getElementById("primuprav").value;
       var row_number_uprav = 0;
-
+      document.getElementById("rowdata").innerHTML = 'Идет поиск...';
       google.script.run.withSuccessHandler(function(ar) 
       {
 
@@ -134,8 +134,8 @@
           
           displayTable += "<div class=\"col-md-3\">"
           displayTable += "<div class=\"form-label\">"
-          displayTable += "<label for=\"up_ispoluprav\">Сотрудник</label> ";
-          displayTable += "<input type=\"text\" id=\"up_ispoluprav"+ row_number_uprav +"\" value=\""+item[6]+"\" class=\"form-control\" /></div></div> ";          
+          displayTable += "<label for=\"up_sotruprav\">Сотрудник</label> ";
+          displayTable += "<input type=\"text\" id=\"up_sotruprav"+ row_number_uprav +"\" value=\""+item[6]+"\" class=\"form-control\" /></div></div> ";          
 
           displayTable += "<div class=\"col-md-1\">"
           displayTable += "<div class=\"form-label\">" 
@@ -167,7 +167,7 @@
         displayTable += '</table></form>';     
         document.getElementById("rowdata").innerHTML = displayTable;
 
-      }).searchRecordsUprav(dateendUprav, datestartUprav, firmaUprav, rabotaUprav, coderabotaUprav, proektUprav, ispolUprav, schUprav, primUprav);
+      }).searchRecordsUpravGs(dateendUprav, datestartUprav, firmaUprav, rabotaUprav, coderabotaUprav, proektUprav, sotrUprav, schUprav, primUprav);
       
     }
 
@@ -177,66 +177,66 @@
     let firma = document.getElementById('firmauprav-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
-  google.script.run.withSuccessHandler(afterDropDownArrayReturnedUprav).getDropDownArrayUprav()
+  google.script.run.withSuccessHandler(afterDropDownArrayReturnedUprav).getDropDownArrayFirma()
 
    function afterDropDownRabotaReturnedUprav(arrayOfArrays){
     let firma = document.getElementById('rabotauprav-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
-  google.script.run.withSuccessHandler(afterDropDownRabotaReturnedUprav).getDropDownArrayRabotaUprav()
+  google.script.run.withSuccessHandler(afterDropDownRabotaReturnedUprav).getDropDownArrayRabota()
 
   function afterDropDownCodeRabotaReturnedUprav(arrayOfArrays){
     let firma = document.getElementById('coderabotauprav-datalist')
     arrayOfArrays.forEach((r)=>{
     const option = document.createElement('option')
-    option.textContent = r[0]
+    option.textContent = r
     firma.appendChild(option)
     })
   } 
-  google.script.run.withSuccessHandler(afterDropDownCodeRabotaReturnedUprav).getDropDownArrayCodeRabotaUprav()
+  google.script.run.withSuccessHandler(afterDropDownCodeRabotaReturnedUprav).getDropDownArrayCodeRabota()
 
   function afterDropDownSotruReturnedUprav(arrayOfArrays){
-    let firma = document.getElementById('ispoluprav-datalist')
+    let firma = document.getElementById('sotruprav-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
-  google.script.run.withSuccessHandler(afterDropDownSotruReturnedUprav).getDropDownArrayIspolUprav()
+  google.script.run.withSuccessHandler(afterDropDownSotruReturnedUprav).getDropDownArraySotr()
    
   function afterDropDownPrimReturnedUprav(arrayOfArrays){
     let firma = document.getElementById('primuprav-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
-  google.script.run.withSuccessHandler(afterDropDownPrimReturnedUprav).getDropDownArrayPrimUprav()
+  google.script.run.withSuccessHandler(afterDropDownPrimReturnedUprav).getDropDownArrayPrim()
 
 function afterDropDownProektReturnedUprav(arrayOfArrays){
     let firma = document.getElementById('proektuprav-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
-  google.script.run.withSuccessHandler(afterDropDownProektReturnedUprav).getDropDownArrayProektUprav()
+  google.script.run.withSuccessHandler(afterDropDownProektReturnedUprav).getDropDownArrayProekt()
 
   ////////////////////////////////////////////////////////////////    
 
  function afterproektUprav(array){
-    document.getElementById('largestproektuprav').innerHTML = array-1
+    document.getElementById('largestproektuprav').innerHTML = array
   }
   google.script.run.withSuccessHandler(afterproektUprav).addpRoekt()
 
