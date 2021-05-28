@@ -3,17 +3,17 @@
         let firma = document.getElementById('proektfin-datalist')
         arrayOfArrays.forEach((r)=>{
         const option = document.createElement('option')
-        option.textContent = r[0]
+        option.textContent = r
         firma.appendChild(option)
         })
       } 
-      google.script.run.withSuccessHandler(afterDropDownProektReturnedFin).getDropDownArrayProektFin()
+      google.script.run.withSuccessHandler(afterDropDownProektReturnedFin).getDropDownArrayProekt()
 
       function afterDropDownSfReturnedFin(arrayOfArrays){
         let firma = document.getElementById('sffin-datalist')
         arrayOfArrays.forEach((r)=>{
         const option = document.createElement('option')
-        option.textContent = r[0]
+        option.textContent = r
         firma.appendChild(option)
         })
       } 
@@ -23,7 +23,7 @@
         let firma = document.getElementById('primfin-datalist')
         arrayOfArrays.forEach((r)=>{
         const option = document.createElement('option')
-        option.textContent = r[0]
+        option.textContent = r
         firma.appendChild(option)
         })
       } 
@@ -33,26 +33,14 @@
         let firma = document.getElementById('firmafin-datalist')
         arrayOfArrays.forEach((r)=>{
         const option = document.createElement('option')
-        option.textContent = r[0]
+        option.textContent = r
         firma.appendChild(option)
         })
       } 
-      google.script.run.withSuccessHandler(afterDropDownFirmaReturnedFin).getDropDownArrayFirmaFin()
+      google.script.run.withSuccessHandler(afterDropDownFirmaReturnedFin).getDropDownArrayFirma()
       
-      function SearchRecordsFin(){
-      var proektFin = document.getElementById("proektfin").value;
-      var summaFin = document.getElementById("summafin").value;
-      var priznakFin = document.getElementById("priznakfin").value;
-      var dateoplFin = document.getElementById("dateoplfin").value;
-      var sfFin = document.getElementById("sffin").value;
-      var primFin = document.getElementById("primfin").value;
-      var idFin = document.getElementById("idfin").value;
-      var firmaFin = document.getElementById("firmafin").value;
-      var row_number_fin = 0;
-
-      google.script.run.withSuccessHandler(function(ar) 
-      {
-       console.log(ar)
+    function array(ar) {
+       var row_number_fin = 0;
         let naydenofin = 0
         ar.forEach(function(item) 
         {
@@ -106,27 +94,27 @@
 
           displayTable += "<div class=\"col-md-3\">"
           displayTable += "<div class=\"form-label bg-light\">"
-          displayTable += "<label for=\"up_sffin\">Примечание</label> "; 
-          displayTable += "<input type=\"text\" id=\"up_primfin"+ row_number_fin +"\" value=\""+item[5]+"\" class=\"form-control\" /></div></div> ";
+          displayTable += "<label for=\"up_primfin\">Примечание</label> "; 
+          displayTable += "<input type=\"text\"  list=\"primfin-datalist\" id=\"up_primfin"+ row_number_fin +"\" value=\""+item[5]+"\" class=\"form-control\" /><datalist id=\"primfin-datalist\"></datalist> </div></div> ";
 
-           displayTable += "<div class=\"col-md-1\">"
+          displayTable += "<div class=\"col-md-1\">"
           displayTable += "<div class=\"form-label bg-light\">"
-          displayTable += "<label for=\"up_sffin\">ID</label> "; 
+          displayTable += "<label for=\"up_idfin\">ID</label> "; 
           displayTable += "<input type=\"number\" id=\"up_idfin"+ row_number_fin +"\" value=\""+item[6]+"\" class=\"form-control\" /></div></div> ";
 
           displayTable += "<div class=\"col-md-4\">"
           displayTable += "<div class=\"form-label bg-light\">"
-          displayTable += "<label for=\"up_sffin\">Фирма</label> "; 
+          displayTable += "<label for=\"up_firmafin\">Фирма</label> "; 
           displayTable += "<input type=\"text\" disabled id=\"up_firmafin"+ row_number_fin +"\" value=\""+item[7]+"\" class=\"form-control\" /></div></div> ";
 
           displayTable += "<div class=\"col-md-2\">"
           displayTable += "<div class=\"form-label bg-light\">"
-          displayTable += "<label for=\"up_sffin\">Сумма исполу</label> "; 
+          displayTable += "<label for=\"up_sumispolfin\">Сумма исполу</label> "; 
           displayTable += "<input type=\"number\" id=\"up_sumispolfin"+ row_number_fin +"\" value=\""+item[8]+"\" class=\"form-control\" /></div></div> ";
 
           displayTable += "<div class=\"col-md-2\">"
           displayTable += "<div class=\"form-label bg-light\">"
-          displayTable += "<label for=\"up_sffin\">Оплата исполу</label> "; 
+          displayTable += "<label for=\"up_v\">Оплата исполу</label> "; 
           displayTable += "<input type=\"number\" id=\"up_oplataispolfin"+ row_number_fin +"\" value=\""+item[9]+"\" class=\"form-control\" /></div></div> ";
                    
           displayTable += "<div class=\"col-md-1\">"
@@ -142,9 +130,36 @@
 
         displayTable += '</table></form>';     
         document.getElementById("rowdatafin").innerHTML = displayTable;
-
-      }).searchRecordsFin(proektFin, summaFin, priznakFin, dateoplFin, sfFin, primFin, idFin, firmaFin);
     }
+
+      function SearchRecordsFin(){
+      var proektFin = document.getElementById("proektfin").value;
+      var summaFin = document.getElementById("summafin").value;
+      var priznakFin = document.getElementById("priznakfin").value;
+      var dateoplFin = document.getElementById("dateoplfin").value;
+      var sfFin = document.getElementById("sffin").value;
+      var primFin = document.getElementById("primfin").value;
+      var idFin = document.getElementById("idfin").value;
+      var firmaFin = document.getElementById("firmafin").value;
+      document.getElementById("rowdatafin").innerHTML = 'Идет поиск...';
+
+      google.script.run.withSuccessHandler(array).searchRecordsFin(proektFin, summaFin, priznakFin, dateoplFin, sfFin, primFin, idFin, firmaFin);
+    }
+
+    function SearchRecordsFinProekt(){
+      var proektFin = document.getElementById("proektfin").value;
+      var summaFin = document.getElementById("summafin").value;
+      var priznakFin = document.getElementById("priznakfin").value;
+      var dateoplFin = document.getElementById("dateoplfin").value;
+      var sfFin = document.getElementById("sffin").value;
+      var primFin = document.getElementById("primfin").value;
+      var idFin = document.getElementById("idfin").value;
+      var firmaFin = document.getElementById("firmafin").value;
+      
+
+      google.script.run.withSuccessHandler(array).searchRecordsFinProekt(proektFin, summaFin, priznakFin, dateoplFin, sfFin, primFin, idFin, firmaFin);
+    }
+
   function ClearRecordFin()
     {
         document.getElementById("proektfin").value = '';
@@ -196,7 +211,7 @@
         {
           //ClearRecordFin()
 document.getElementById("proektfin").value = proektFin;
-          SearchRecordsFin();
+          SearchRecordsFinProekt();
           
           document.getElementById("add_button_fin").disabled = false;
         }).AddRecordFin(proektFin, summaFin, priznakFin, dateoplFin, sfFin, primFin, idFin, firmaFin); 
