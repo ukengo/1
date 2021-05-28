@@ -88,10 +88,11 @@ function getLastRow() {
   return i + 1
 }
 
-// бот для отправки в телеграм после внесения данных с Ирмны в Управление
+// бот для отправки в телеграм после внесения данных с Ирины в Управление
 function readLastRow(mesage) {
 
-  var botId = '970219148:AAFr7rOe8ScRrEVzKKMReKIYzrejRzYSbmQ'; // тут должен быть ID бота
+  //var botId = '970219148:AAFr7rOe8ScRrEVzKKMReKIYzrejRzYSbmQ'; // тут должен быть ID бота
+  var botId = '1429466119:AAG58O0k-4amhUK3yJsDU7bD5rWPj5iPEBw'; // тут должен быть ID бота
   var chatID = '374805417'; // ID группа в которую отправляется сообщение
   var lock = LockService.getScriptLock();
   try {
@@ -111,7 +112,8 @@ function readLastRow(mesage) {
 
 function sendMessage(sText, chatID) {
 
-  var botId = '970219148:AAFr7rOe8ScRrEVzKKMReKIYzrejRzYSbmQ'; // тут должен быть ID бота
+  //var botId = '970219148:AAFr7rOe8ScRrEVzKKMReKIYzrejRzYSbmQ'; // тут должен быть ID бота
+  var botId = '1429466119:AAG58O0k-4amhUK3yJsDU7bD5rWPj5iPEBw'; // тут должен быть ID бота
   var chatID = '374805417'; // ID группа в которую отправляется сообщение
   UrlFetchApp.fetch("https://api.telegram.org/bot" + botId + "/sendMessage?chat_id=" + chatID, {
     'method': 'post',
