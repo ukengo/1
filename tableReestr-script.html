@@ -4,78 +4,78 @@
     let firma = document.getElementById('firmareestr-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
-  google.script.run.withSuccessHandler(afterDropDownArrayReturnedReestr).getDropDownArrayReestr()
+  google.script.run.withSuccessHandler(afterDropDownArrayReturnedReestr).getDropDownArrayFirma()
 
    function afterDropDownRabotaReturnedReestr(arrayOfArrays){
     let firma = document.getElementById('rabotareestr-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
-  google.script.run.withSuccessHandler(afterDropDownRabotaReturnedReestr).getDropDownArrayRabotaReestr()
+  google.script.run.withSuccessHandler(afterDropDownRabotaReturnedReestr).getDropDownArrayRabota()
 
   function afterDropDownCodeRabotaReturnedReestr(arrayOfArrays){
     let firma = document.getElementById('coderabotareestr-datalist')
     arrayOfArrays.forEach((r)=>{
     const option = document.createElement('option')
-    option.textContent = r[0]
+    option.textContent = r
     firma.appendChild(option)
     })
   } 
-  google.script.run.withSuccessHandler(afterDropDownCodeRabotaReturnedReestr).getDropDownArrayCodeRabotaReestr()
+  google.script.run.withSuccessHandler(afterDropDownCodeRabotaReturnedReestr).getDropDownArrayCodeRabota()
 
   function afterDropDownProektReturnedReestr(arrayOfArrays){
     let firma = document.getElementById('proektreestr-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
-  google.script.run.withSuccessHandler(afterDropDownProektReturnedReestr).getDropDownArrayProektReestr()
+  google.script.run.withSuccessHandler(afterDropDownProektReturnedReestr).getDropDownArrayProekt()
 
 
   function afterDropDownSotrReturnedReestr(arrayOfArrays){
     let firma = document.getElementById('sotrreestr-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
-  google.script.run.withSuccessHandler(afterDropDownSotrReturnedReestr).getDropDownArraySotrReestr()
+  google.script.run.withSuccessHandler(afterDropDownSotrReturnedReestr).getDropDownArraySotr()
 
   function afterDropDownIspolReturnedReestr(arrayOfArrays){
     let firma = document.getElementById('ispolreestr-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
-  google.script.run.withSuccessHandler(afterDropDownIspolReturnedReestr).getDropDownArrayIspolReestr()
+  google.script.run.withSuccessHandler(afterDropDownIspolReturnedReestr).getDropDownArrayIspol()
 
   function afterDropDownPrimReturnedReestr(arrayOfArrays){
     let firma = document.getElementById('primreestr-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
-  google.script.run.withSuccessHandler(afterDropDownPrimReturnedReestr).getDropDownArrayPrimReestr()
+  google.script.run.withSuccessHandler(afterDropDownPrimReturnedReestr).getDropDownArrayPrim()
   
   function afterDropDownPrimMoyoReturnedReestr(arrayOfArrays){
     let firma = document.getElementById('primmoyoreestr-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
@@ -100,7 +100,7 @@
       var withoutaccountReestr = document.getElementById("withoutaccountreestr").checked;
       var stoppedReestr = document.getElementById("stoppedreestr").checked;
       var row_number_reestr = 0;
-
+      document.getElementById("rowdatareestr").innerHTML = 'Идет поиск...'
       google.script.run.withSuccessHandler(function(ar) 
       {
      
@@ -115,7 +115,7 @@
 
         ar.forEach(function(item, index) 
         {
-        
+          
           displayTableReestr += "<tr id=\"ROWNUMBER:"+ row_number_reestr +"\" >";
 
           displayTableReestr += "<td colspan=\"9\">"
@@ -136,7 +136,7 @@
           displayTableReestr += "<div class=\"col-md-5\">"
           displayTableReestr += "<div class=\"form-label bg-light\">"
           displayTableReestr += "<label for=\"up_firmareestr\">Фирма</label> ";
-          displayTableReestr += "<input type=\"text\" id=\"up_firmareestr"+ row_number_reestr +"\" value=\""+item[2]+"\" class=\"form-control\" /></div></div> ";
+          displayTableReestr += "<input type=\"text\" list=\"firmareestr-datalist\" id=\"up_firmareestr"+ row_number_reestr +"\" value=\""+item[2]+"\" class=\"form-control\" /> <datalist id=\"firmareestr-datalist\"></datalist></div></div> ";
 
           displayTableReestr += "<div class=\"col-md-2\">"
           displayTableReestr += "<div class=\"form-label bg-light\">"
@@ -162,7 +162,7 @@
           displayTableReestr += "<div class=\"col-auto\">"
           displayTableReestr += "<div class=\"form-label bg-light\">"
           displayTableReestr += "<label for=\"up_ispolreestr\">Исполнитель</label> ";
-          displayTableReestr += "<input type=\"text\" id=\"up_ispolreestr"+ row_number_reestr +"\" value=\""+item[7]+"\" class=\"form-control\" /></div></div> ";          
+          displayTableReestr += "<input type=\"text\" list=\"ispolreestr-datalist\"  id=\"up_ispolreestr"+ row_number_reestr +"\" value=\""+item[7]+"\" class=\"form-control\" /><datalist id=\"ispolreestr-datalist\"></datalist></div></div> ";          
 
           displayTableReestr += "<div class=\"col-md-2\">"
           displayTableReestr += "<div class=\"form-label bg-light\">" 
@@ -279,7 +279,7 @@
     if(item === true){
       return 'checked'
     }else{
-      return item
+      return ''
     }
 
   }
