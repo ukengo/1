@@ -1,9 +1,25 @@
-function addNewRowMinusThreee(rowData) {
+//удаление элемента массива и замена его на форматированную дату
+// нумерация (numElement) с нуля
+/*  function formatDateElement(numElement, rowData){
+  const vasteDate = String(rowData.splice(numElement, 1))
+  return rowData.splice(numElement, 0, Utilities.formatDate(new Date(vasteDate), 'Europe/Kiev', 'dd.MM.yyyy'))
+}
 
-  SSREESTR.getSheetByName('Прочие траты').appendRow(rowData)
+// добавление строк в приход-расход
+function addNewRowWaste(rowData) {
+  dataWaste.appendRow(formatDateElement(0, rowData))
   return true
 }
 
+function addNewRowArrival(rowData) {
+  dataArriwal.appendRow(formatDateElement(0, rowData))
+  return true
+}
+
+function addNewRowMinusThreee(rowData) {
+  dataWaste.appendRow(formatDateElement(0, rowData))
+  return true
+} */
 function addNewRowWaste(rowData) {
   const vasteDate = String(rowData.splice(0, 1))
   rowData.splice(0, 0, Utilities.formatDate(new Date(vasteDate), 'Europe/Kiev', 'dd.MM.yyyy'))
@@ -25,22 +41,14 @@ function addNewRowMinusThreee(rowData) {
   return true
 }
 
-
-function getDropDownFirma() {
-  const ws = SSREESTR.getSheetByName('Списки')
-  return ws.getRange(2, 15, ws.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownStatya() {
-  const ws = SSREESTR.getSheetByName('Списки')
-  const rashod = ws.getRange(2, 12, ws.getLastRow() - 1, 1).getValues()
-  const dohod = ws.getRange(2, 13, ws.getLastRow() - 1, 1).getValues()
-  return rashod.concat(dohod).filter(r => r != '')
-}
-
 ////////////////////////////////////////////////////////////////////////////////
 
 function addpRoekt() {
+  const arr = getDropDownArray(dataSheet,2,6)
+  return arr[arr.length-1]
+}
+
+/* function addpRoekt() {
   const ss = SpreadsheetApp.openByUrl(URLUPRAV)
   const sheet = ss.getSheetByName('База')
   var dataValues = sheet.getRange("F1:F").getValues(); //получаем массив проектов
@@ -54,7 +62,7 @@ function addpRoekt() {
   }
   var NumProekt = sheet.getRange(lastRowInData, 6).getValue();
   return NumProekt + 1
-}
+} */
 
 function addNewRow(rowData) {
   // таблица Управление
@@ -73,43 +81,103 @@ function addNewRow(rowData) {
   return true
 }
 
-function getDropDownArray() {
-  const ws = SSREESTR.getSheetByName('Списки')
-  return ws.getRange(2, 5, ws.getLastRow() - 1, 1).getValues().filter(r => r != '')
+//////////////////////////////
+// Выбор для формирования выпадающих списков
+
+// Общая функция
+function getDropDownArray(sheet,row,col) {
+  return[...new Set(sheet.getRange(row, col, sheet.getLastRow() - 1, 1).getValues().filter(String).flat())]
 }
 
+//таблица Управление - Фирмы
+function getDropDownArrayFirma() {
+  return getDropDownArray(dataSheet,2,3)
+}
+
+//таблица Управление - Сотрудники
 function getDropDownArraySotr() {
-
-  const ws = SSREESTR.getSheetByName('Списки')
-
-  return ws.getRange(2, 3, ws.getLastRow() - 1, 1).getValues().filter(r => r != '')
+    return getDropDownArray(dataSheet,2,7)
 }
 
+//таблица Управление - Код работа
 function getDropDownArrayCodeRabota() {
-
-  const ws = SSREESTR.getSheetByName('Списки')
-
-  return ws.getRange(2, 1, ws.getLastRow() - 1, 1).getValues().filter(r => r != '')
+  return getDropDownArray(dataSheet,2,5)  
 }
 
+//таблица Управление - Работа
 function getDropDownArrayRabota() {
-
-  const ws = SSREESTR.getSheetByName('Списки')
-  return ws.getRange(2, 6, ws.getLastRow() - 1, 1).getValues().filter(r => r != '')
+  return getDropDownArray(dataSheet,2,4)
 }
 
+//таблица Управление - Примечание
 function getDropDownArrayPrim() {
-
-  const ws = SSREESTR.getSheetByName('Списки')
-  return ws.getRange(2, 14, ws.getLastRow() - 1, 1).getValues().filter(r => r != '')
+  return getDropDownArray(dataSheet,2,9)  
 }
 
+//таблица Управление - Проект
 function getDropDownArrayProekt() {
-
-  const ws = SSREESTR.getSheetByName('База')
-
-  return ws.getRange(2, 6, ws.getLastRow() - 1, 1).getValues().filter(r => r != '')
+  return getDropDownArray(dataSheet,2,6)
 }
+
+//таблица Реестр оформлений - Исполнитель (инспектор)
+function getDropDownArrayIspol() {
+  return getDropDownArray(dataBase,2,16)  
+}
+
+//таблица Реестр оформлений - Номера проектов из Финансы
+function getDropDownArrayProektFin() {
+  return getDropDownArray(dataFinance,100,1)
+}
+
+//таблица Реестр оформлений - Номера счетов из Финансы
+function getDropDownArraySfFin() {
+   return getDropDownArray(dataFinance,100,5)
+}
+
+//таблица Реестр оформлений - Примечания из Финансы
+function getDropDownArrayPrimFin() {
+  return getDropDownArray(dataFinance,100,6)
+}
+
+//таблица Реестр оформлений - Примечания мое
+function getDropDownArrayPrimMoyoReestr() {
+  return getDropDownArray(dataBase,2,21)
+}
+
+//таблица Реестр оформлений - Номера проектов из Job
+function getDropDownArrayProektJob() {
+  return getDropDownArray(dataJob,100,1)
+}
+
+//таблица Реестр оформлений - Работа из Job
+function getDropDownArrayRabotaJob() {
+  return getDropDownArray(dataJob,100,2)
+}
+
+//таблица Реестр оформлений - Описание из Job
+function getDropDownArrayOpisanieJob() {
+  return getDropDownArray(dataJob,100,5)
+}
+
+//таблица Реестр оформлений - Фирма из Job
+function getDropDownArrayFirmaJob() {
+  return getDropDownArray(dataJob,100,10)
+}
+
+//таблица Реестр оформлений - Фирмы из Прочие поступления
+function getDropDownArrayFirmaArrivalWaste() {
+  return getDropDownArray(dataArriwal,2,4)
+}
+
+//таблица Реестр оформлений - Статьи из Прочие поступления и Прочие траты
+function getDropDownArrayStatyaArrivalWaste() {
+  const rashod = dataWaste.getRange(2, 4, dataWaste.getLastRow() - 1, 1).getValues()
+  const dohod = dataArriwal.getRange(2, 5, dataArriwal.getLastRow() - 1, 1).getValues()
+  return[...new Set(rashod.concat(dohod).filter(String).flat())]
+}
+
+// Конец выбора для формирования выпадающих списков
+//////////////////////////////
 
 
 //автовставка даты в форму
@@ -280,7 +348,7 @@ function AddRecordUprav(dateendUprav, datestartUprav, firmaUprav, rabotaUprav, c
   return 'SUCCESS';
 }
 
-function searchRecordsUprav(dateendUprav, datestartUprav, firmaUprav, rabotaUprav, coderabotaUprav, proektUprav, ispolUprav, schUprav, primUprav) {
+function searchRecordsUpravGs(dateendUprav, datestartUprav, firmaUprav, rabotaUprav, coderabotaUprav, proektUprav, sotrUprav, schUprav, primUprav) {
 
   var returnRows = [];
   var allRecords = getRecordsUprav();
@@ -355,8 +423,8 @@ function searchRecordsUprav(dateendUprav, datestartUprav, firmaUprav, rabotaUpra
       evalRows.push('true');
     }
 
-    if (ispolUprav != '') {
-      if (value[6].toUpperCase() == ispolUprav.toUpperCase()) {
+    if (sotrUprav != '') {
+      if (value[6].toUpperCase() == sotrUprav.toUpperCase()) {
         evalRows.push('true');
       } else {
         evalRows.push('false');
@@ -393,7 +461,7 @@ function searchRecordsUprav(dateendUprav, datestartUprav, firmaUprav, rabotaUpra
     }
   
   });
-
+console.log(returnRows)
   return returnRows;
 }
 
@@ -414,54 +482,8 @@ function getDateUprav(date) {
 }
 
 
-//////////////////////////////////
-
-function getDropDownArrayUprav() {
-  return dataSpiski.getRange(2, 1, dataSpiski.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArrayIspolUprav() {
-  return dataSpiski.getRange(2, 4, dataSpiski.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArrayCodeRabotaUprav() {
-  return dataSpiski.getRange(2, 3, dataSpiski.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArrayRabotaUprav() {
-  return dataSpiski.getRange(2, 2, dataSpiski.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArrayPrimUprav() {
-  return dataSpiski.getRange(2, 5, dataSpiski.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArrayProektUprav() {
-
-  return dataSheet.getRange(2, 6, dataSheet.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-
-
 ////////////////////////////////////////////////
-
-// finance
-
-function getDropDownArrayProektFin() {
-  return dataSpiskiReestr.getRange(2, 19, dataSpiskiReestr.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArraySfFin() {
-  return dataSpiskiReestr.getRange(2, 16, dataSpiskiReestr.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArrayPrimFin() {
-  return dataSpiskiReestr.getRange(2, 17, dataSpiskiReestr.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArrayFirmaFin() {
-  return dataSpiskiReestr.getRange(2, 5, dataSpiskiReestr.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
+// financetable
 
 function searchRecordsFin(proektFin, summaFin, priznakFin, dateoplFin, sfFin, primFin, idFin, firmaFin) {
 
@@ -572,6 +594,52 @@ function searchRecordsFin(proektFin, summaFin, priznakFin, dateoplFin, sfFin, pr
       evalRows.push('true');
     }
 
+    if (evalRows.indexOf("false") == -1) {
+      if (ispol) {
+        value.splice(8, 0, ...ispol)
+      }
+      returnRows.push(value);
+
+    }
+
+  });
+
+  return returnRows;
+}
+
+function searchRecordsFinProekt(proektFin, summaFin, priznakFin, dateoplFin, sfFin, primFin, idFin, firmaFin) {
+
+  var returnRows = [];
+  var allRecords = getRecordsFin();
+  const range = dataBase.getRange(1, 1, dataBase.getLastRow() + 1, dataBase.getLastColumn() + 1);
+  const values = range.getValues();
+  for (var i = 0; i < values.length; i++) {
+    for (var ii = 0; ii <= values[i].length; ii++) {
+      if (values[i][ii] == proektFin) {
+        var row = i + 1
+        var col = ii + 1
+      }
+    }
+  }
+  
+  let ispol = [dataBase.getRange(row, col + 11).getValue(), dataBase.getRange(row, col + 12).getValue()]
+
+  allRecords.forEach(function (value, index) {
+
+    var evalRows = [];
+
+    if (proektFin != '') {
+      if (value[0] == proektFin) {
+        evalRows.push('true');
+      } else {
+        evalRows.push('false');
+      }
+    }
+    else {
+      evalRows.push('true');
+    }
+   evalRows.splice(1,0,'true','true','true','true','true','true','true')
+      
     if (evalRows.indexOf("false") == -1) {
       if (ispol) {
         value.splice(8, 0, ...ispol)
@@ -731,43 +799,8 @@ function startDataSotrGs() {
   return res
 }
 
-
-
-
 ////////////////////////////////////////////////
 //ТАБЛИЦА РЕЕСТР ОФОРМЛЕНИЙ
-
-function getDropDownArrayReestr() {
-  return dataSpiskiReestr.getRange(2, 5, dataSpiskiReestr.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArrayRabotaReestr() {
-  return dataSpiski.getRange(2, 2, dataSpiski.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArrayCodeRabotaReestr() {
-  return dataSpiski.getRange(2, 3, dataSpiski.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArrayProektReestr() {
-  return dataSheet.getRange(2, 6, dataSheet.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArraySotrReestr() {
-  return dataSpiski.getRange(2, 4, dataSpiski.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArrayIspolReestr() {
-  return dataSpiskiReestr.getRange(2, 4, dataSpiskiReestr.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArrayPrimReestr() {
-  return dataSpiski.getRange(2, 5, dataSpiski.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArrayPrimMoyoReestr() {
-  return dataSpiskiReestr.getRange(2, 7, dataSpiskiReestr.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
 
 function searchRecordsReestrGs(dateendReestr,datestartReestr, firmaReestr, rabotaReestr, coderabotaReestr, proektReestr, sotrReestr, ispolReestr, sumispolReestr, sumoplataReestr, primReestr, primMoyoReestr, issuepartReestr, withoutaccountReestr, stoppedReestr)
 {
@@ -802,7 +835,7 @@ function searchRecordsReestrGs(dateendReestr,datestartReestr, firmaReestr, rabot
     }
 
     if (firmaReestr != '') {
-      if (value[2].toUpperCase() == firmaReestr.toUpperCase()) {
+      if (String(value[2]).toUpperCase() == firmaReestr.toUpperCase()) {
         evalRows.push('yes');
       } else {
         evalRows.push('no');
@@ -813,7 +846,7 @@ function searchRecordsReestrGs(dateendReestr,datestartReestr, firmaReestr, rabot
     }
 
     if (rabotaReestr != '') {
-      if (value[3].toUpperCase() == rabotaReestr.toUpperCase()) {
+      if (String(value[3]).toUpperCase() == rabotaReestr.toUpperCase()) {
         evalRows.push('yes');
       } else {
         evalRows.push('no');
@@ -824,7 +857,7 @@ function searchRecordsReestrGs(dateendReestr,datestartReestr, firmaReestr, rabot
     }
 
     if (coderabotaReestr != '') {
-      if (value[4].toUpperCase() == coderabotaReestr.toUpperCase()) {
+      if (String(value[4]).toUpperCase() == coderabotaReestr.toUpperCase()) {
         evalRows.push('yes');
       } else {
         evalRows.push('no');
@@ -846,7 +879,7 @@ function searchRecordsReestrGs(dateendReestr,datestartReestr, firmaReestr, rabot
     }
 
     if (sotrReestr != '') {
-      if (value[6].toUpperCase() == sotrReestr.toUpperCase()) {
+      if (String(value[6]).toUpperCase() == sotrReestr.toUpperCase()) {
         evalRows.push('yes');
       } else {
         evalRows.push('no');
@@ -857,7 +890,7 @@ function searchRecordsReestrGs(dateendReestr,datestartReestr, firmaReestr, rabot
     }
 
     if (ispolReestr != '') {
-      if (value[7].toUpperCase() == ispolReestr.toUpperCase()) {
+      if (String(value[7]).toUpperCase() == ispolReestr.toUpperCase()) {
         evalRows.push('yes');
       } else {
         evalRows.push('no');
@@ -890,7 +923,7 @@ function searchRecordsReestrGs(dateendReestr,datestartReestr, firmaReestr, rabot
     }    
 
     if (primReestr != '') {
-      if (value[10].toUpperCase() == primReestr.toUpperCase()) {
+      if (String(value[10]).toUpperCase() == primReestr.toUpperCase()) {
         evalRows.push('yes');
       } else {
         evalRows.push('no');
@@ -901,7 +934,7 @@ function searchRecordsReestrGs(dateendReestr,datestartReestr, firmaReestr, rabot
     }
 
     if (primMoyoReestr != '') {
-      if (value[11].toUpperCase() == primMoyoReestr.toUpperCase()) {
+      if (String(value[11]).toUpperCase() == primMoyoReestr.toUpperCase()) {
         evalRows.push('yes');
       } else {
         evalRows.push('no');
@@ -957,12 +990,13 @@ console.log(returnRows)
 
 function getRecordsReestr() {
   const dateRee = dataBase.getDataRange().getValues().slice(1)
-  const dataFilterMapRee = dateRee.filter(x => x[5] != '')
+  const dataMapRee = dateRee.filter(x => x[5] != '')
     .map(x => [getDateUprav(x[0]), getDateUprav(x[1]), x[2], x[3], x[4], x[5], x[6], x[15], x[16], x[17], x[21], x[20], x[23], x[22], x[18]])
- 
-  return dataFilterMapRee;
+  const dataFilterMapRee0 = dataMapRee.filter(x => x[0] === '').sort((a,b)=>b[5]-a[5])
+  const dataFilterMapRee1 = dataMapRee.filter(x => x[0] != '').sort().reverse() 
+  const dataFilterMapReeDate = dataFilterMapRee0.concat(dataFilterMapRee1)
+  return dataFilterMapReeDate
 }
-
 
 function UpdateRecordReestrGs(dateendReestr,datestartReestr, firmaReestr, rabotaReestr, coderabotaReestr, proektReestr, sotrReestr, ispolReestr, sumispolReestr, sumoplataReestr, primReestr, primMoyoReestr, issuepartReestr, withoutaccountReestr, stoppedReestr) {
   
@@ -985,7 +1019,6 @@ function UpdateRecordReestrGs(dateendReestr,datestartReestr, firmaReestr, rabota
   var table_values_ree = dataBase.getRange(2, 1, getLastRowRee, 25).getValues();
   for (i = 0; i < table_values_ree.length; i++) {
     if (table_values_ree[i][5] == proektReestr) {
-
      
       dataBase.getRange(i + 2, 16).setValue(ispolReestr);
       dataBase.getRange(i + 2, 17).setValue(sumispolReestr);
@@ -1000,23 +1033,7 @@ function UpdateRecordReestrGs(dateendReestr,datestartReestr, firmaReestr, rabota
 }
 
 ///////////////////////////////////////////////////
-// job
-
-function getDropDownArrayProektJob() {
-  return dataSpiskiReestr.getRange(2, 20, dataSpiskiReestr.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArrayRabotaJob() {
-  return dataSpiskiReestr.getRange(2, 21, dataSpiskiReestr.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArrayOpisanieJob() {
-  return dataSpiskiReestr.getRange(2, 22, dataSpiskiReestr.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
-
-function getDropDownArrayFirmaJob() {
-  return dataSpiskiReestr.getRange(2, 5, dataSpiskiReestr.getLastRow() - 1, 1).getValues().filter(r => r != '')
-}
+// jobtable
 
 function searchRecordsJob(proektJob, rabotaJob, datestartJob, dateendJob, opisanieJob, idJob, firmaJob, originalJob) {
 
@@ -1115,6 +1132,39 @@ function searchRecordsJob(proektJob, rabotaJob, datestartJob, dateendJob, opisan
       evalRows.push('yes');
     }
 
+    if (evalRows.indexOf("no") == -1) {
+  
+      returnRows.push(value);
+
+    }
+
+  });
+
+  return returnRows;
+}
+
+function searchRecordsJobProekt(proektJob, rabotaJob, datestartJob, dateendJob, opisanieJob, idJob, firmaJob, originalJob) {
+
+  var returnRows = [];
+  var allRecords = getRecordsJob();
+  
+  allRecords.forEach(function (value, index) {
+
+    var evalRows = [];
+
+    if (proektJob != '') {
+      if (value[0] == proektJob) {
+        evalRows.push('yes');
+      } else {
+        evalRows.push('no');
+      }
+    }
+    else {
+      evalRows.push('yes');
+    }
+
+   evalRows.splice(1,0,'true','true','true','true','true','true','true')
+    
     if (evalRows.indexOf("no") == -1) {
   
       returnRows.push(value);
