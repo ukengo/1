@@ -4,17 +4,17 @@
     let firma = document.getElementById('firma-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
-  google.script.run.withSuccessHandler(afterDropDownArrayReturned).getDropDownArray()
+  google.script.run.withSuccessHandler(afterDropDownArrayReturned).getDropDownArrayFirma()
 
   function afterDropDownRabotaReturned(arrayOfArrays){
     let firma = document.getElementById('rabota-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
@@ -24,7 +24,7 @@
     let firma = document.getElementById('code-rabota-datalist')
     arrayOfArrays.forEach((r)=>{
     const option = document.createElement('option')
-    option.textContent = r[0]
+    option.textContent = r
     firma.appendChild(option)
     })
   } 
@@ -34,7 +34,7 @@
     let firma = document.getElementById('sotr-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
@@ -44,14 +44,14 @@
     let firma = document.getElementById('prim-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
   google.script.run.withSuccessHandler(afterDropDownPrimReturned).getDropDownArrayPrim()
 
   function afterproekt(array){
-    document.getElementById('proekt').value = array
+    document.getElementById('proekt').value = array+1
   }
 
   google.script.run.withSuccessHandler(afterproekt).addpRoekt()
