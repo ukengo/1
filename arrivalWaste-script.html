@@ -3,21 +3,21 @@
     let firma = document.getElementById('firmaArrivalWaste-datalist')
     arrayOfArrays.forEach((r)=>{
        const option = document.createElement('option')
-       option.textContent = r[0]
+       option.textContent = r
        firma.appendChild(option)
     })
   } 
-  google.script.run.withSuccessHandler(afterDropDownFirmaReturned).getDropDownFirma()
+  google.script.run.withSuccessHandler(afterDropDownFirmaReturned).getDropDownArrayFirmaArrivalWaste()
 
   function afterDropDownStatyaReturned(arrayOfArrays){
     let firma = document.getElementById('waste-datalist')
     arrayOfArrays.forEach((r)=>{
       const option = document.createElement('option')
-      option.textContent = r[0]
+      option.textContent = r
       firma.appendChild(option)
     })
   } 
-  google.script.run.withSuccessHandler(afterDropDownStatyaReturned).getDropDownStatya()
+  google.script.run.withSuccessHandler(afterDropDownStatyaReturned).getDropDownArrayStatyaArrivalWaste()
 
   function rowDataRangeWaste(){
     const date = document.getElementById('date')
