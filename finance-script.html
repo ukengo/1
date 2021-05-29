@@ -46,8 +46,9 @@
         {
           naydenofin += item[1]*1
         }) 
+        const ro = (Math.round(naydenofin*100)/100).toFixed(2)
         if (naydenofin){
-          naydenofin = "Сумма: " + naydenofin + " грн." 
+          naydenofin = "Сумма: " + ro + " грн." 
         }else{
           "Нет данных"
         }
