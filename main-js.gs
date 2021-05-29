@@ -23,21 +23,21 @@ function addNewRowMinusThreee(rowData) {
 function addNewRowWaste(rowData) {
   const vasteDate = String(rowData.splice(0, 1))
   rowData.splice(0, 0, Utilities.formatDate(new Date(vasteDate), 'Europe/Kiev', 'dd.MM.yyyy'))
-  SSREESTR.getSheetByName('Прочие траты').appendRow(rowData)
+  dataWaste.appendRow(rowData)
   return true
 }
 
 function addNewRowArrival(rowData) {
   const arrivalDate = String(rowData.splice(0, 1))
   rowData.splice(0, 0, Utilities.formatDate(new Date(arrivalDate), 'Europe/Kiev', 'dd.MM.yyyy'))
-  SSREESTR.getSheetByName('Прочие поступления').appendRow(rowData)
+  dataArriwal.appendRow(rowData)
   return true
 }
 
 function addNewRowMinusThreee(rowData) {
   const privDate = String(rowData.splice(0, 1))
   rowData.splice(0, 0, Utilities.formatDate(new Date(privDate), 'Europe/Kiev', 'dd.MM.yyyy'))
-  SSREESTR.getSheetByName('Прочие траты').appendRow(rowData)
+  dataWaste.appendRow(rowData)
   return true
 }
 
