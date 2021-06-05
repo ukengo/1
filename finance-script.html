@@ -1,44 +1,25 @@
 <script>
-      function afterDropDownProektReturnedFin(arrayOfArrays){
-        let firma = document.getElementById('proektfin-datalist')
-        arrayOfArrays.forEach((r)=>{
-        const option = document.createElement('option')
-        option.textContent = r
-        firma.appendChild(option)
-        })
-      } 
-      google.script.run.withSuccessHandler(afterDropDownProektReturnedFin).getDropDownArrayProekt()
-
-      function afterDropDownSfReturnedFin(arrayOfArrays){
-        let firma = document.getElementById('sffin-datalist')
-        arrayOfArrays.forEach((r)=>{
-        const option = document.createElement('option')
-        option.textContent = r
-        firma.appendChild(option)
-        })
-      } 
-      google.script.run.withSuccessHandler(afterDropDownSfReturnedFin).getDropDownArraySfFin()
-
-      function afterDropDownPrimReturnedFin(arrayOfArrays){
-        let firma = document.getElementById('primfin-datalist')
-        arrayOfArrays.forEach((r)=>{
-        const option = document.createElement('option')
-        option.textContent = r
-        firma.appendChild(option)
-        })
-      } 
-      google.script.run.withSuccessHandler(afterDropDownPrimReturnedFin).getDropDownArrayPrimFin()
-
-      function afterDropDownFirmaReturnedFin(arrayOfArrays){
-        let firma = document.getElementById('firmafin-datalist')
-        arrayOfArrays.forEach((r)=>{
-        const option = document.createElement('option')
-        option.textContent = r
-        firma.appendChild(option)
-        })
-      } 
-      google.script.run.withSuccessHandler(afterDropDownFirmaReturnedFin).getDropDownArrayFirma()
       
+    google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+        afterDropDownReturned(arrayOfArrays, 'proektfin-datalist')
+      }).getDropDownArrayProekt()
+    
+    google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+        afterDropDownReturned(arrayOfArrays, 'sffin-datalist')
+      }).getDropDownArraySfFin()
+    
+    google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+        afterDropDownReturned(arrayOfArrays, 'primfin-datalist')
+      }).getDropDownArrayPrimFin()
+    
+    google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+        afterDropDownReturned(arrayOfArrays, 'firmafin-datalist')
+      }).getDropDownArrayFirma()
+    
+    google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+        afterDropDownReturned(arrayOfArrays, 'priznakfin-datalist')
+      }).getDropDownArrayPriznak()
+    
     function array(ar) {
        var row_number_fin = 0;
         let naydenofin = 0
@@ -46,7 +27,8 @@
         {
           naydenofin += item[1]*1
         }) 
-        const ro = (Math.round(naydenofin*100)/100).toFixed(2)
+        const ro = new Intl.NumberFormat('ru-RU', { minimumFractionDigits: 2}).format(naydenofin)
+       
         if (naydenofin){
           naydenofin = "Сумма: " + ro + " грн." 
         }else{
@@ -81,8 +63,8 @@
           displayTable += "<div class=\"col-md-1\">"
           displayTable += "<div class=\"form-label bg-light\">"
           displayTable += "<label for=\"up_priznakfin\">Признак</label> ";
-          displayTable += "<input type=\"text\" id=\"up_priznakfin"+ row_number_fin +"\" value=\""+item[2]+"\" class=\"form-control\" /></div></div> ";
-
+          displayTable += "<input  type=\"text\" list=\"priznakfin-datalist\" id=\"up_priznakfin"+ row_number_fin +"\" value=\""+item[2]+"\" class=\"form-control\" /><datalist id=\"priznakfin-datalist\"></datalist></div></div> ";
+          
           displayTable += "<div class=\"col-md-2\">"
           displayTable += "<div class=\"form-label bg-light\">"
           displayTable += "<label for=\"up_dateoplfin\">Дата оплаты</label> "; 
@@ -134,15 +116,15 @@
     }
 
       function SearchRecordsFin(){
-      var proektFin = document.getElementById("proektfin").value;
-      var summaFin = document.getElementById("summafin").value;
-      var priznakFin = document.getElementById("priznakfin").value;
-      var dateoplFin = document.getElementById("dateoplfin").value;
-      var sfFin = document.getElementById("sffin").value;
-      var primFin = document.getElementById("primfin").value;
-      var idFin = document.getElementById("idfin").value;
-      var firmaFin = document.getElementById("firmafin").value;
-      document.getElementById("rowdatafin").innerHTML = 'Идет поиск...';
+        var proektFin = document.getElementById("proektfin").value;
+        var summaFin = document.getElementById("summafin").value;
+        var priznakFin = document.getElementById("priznakfin").value;
+        var dateoplFin = document.getElementById("dateoplfin").value;
+        var sfFin = document.getElementById("sffin").value;
+        var primFin = document.getElementById("primfin").value;
+        var idFin = document.getElementById("idfin").value;
+        var firmaFin = document.getElementById("firmafin").value;
+        spinner('rowdatafin')
 
       google.script.run.withSuccessHandler(array).searchRecordsFin(proektFin, summaFin, priznakFin, dateoplFin, sfFin, primFin, idFin, firmaFin);
     }
@@ -199,15 +181,15 @@
     function AddRowFin()
     {
       document.getElementById("add_button_fin").disabled = true;
-      var proektFin = document.getElementById("proektfin").value;
-      var summaFin = document.getElementById("summafin").value;
-      var priznakFin = document.getElementById("priznakfin").value;
-      var dateoplFin = document.getElementById("dateoplfin").value;
-      var sfFin = document.getElementById("sffin").value;
-      var primFin = document.getElementById("primfin").value;
-      var idFin = document.getElementById("idfin").value;
-      var firmaFin = document.getElementById("firmafin").value;
-  
+        var proektFin = document.getElementById("proektfin").value;
+        var summaFin = document.getElementById("summafin").value;
+        var priznakFin = document.getElementById("priznakfin").value;
+        var dateoplFin = document.getElementById("dateoplfin").value;
+        var sfFin = document.getElementById("sffin").value;
+        var primFin = document.getElementById("primfin").value;
+        var idFin = document.getElementById("idfin").value;
+        var firmaFin = document.getElementById("firmafin").value;
+        spinner('rowdatafin')
         google.script.run.withSuccessHandler(function(return_string) 
         {
           //ClearRecordFin()
@@ -218,5 +200,7 @@ document.getElementById("proektfin").value = proektFin;
         }).AddRecordFin(proektFin, summaFin, priznakFin, dateoplFin, sfFin, primFin, idFin, firmaFin); 
 
       }
+
+
 
 </script>
