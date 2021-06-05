@@ -1,23 +1,13 @@
 <script>
-	function afterDropDownFirmaReturned(arrayOfArrays){
-    let firma = document.getElementById('firmaArrivalWaste-datalist')
-    arrayOfArrays.forEach((r)=>{
-       const option = document.createElement('option')
-       option.textContent = r
-       firma.appendChild(option)
-    })
-  } 
-  google.script.run.withSuccessHandler(afterDropDownFirmaReturned).getDropDownArrayFirmaArrivalWaste()
+	
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'firmaArrivalWaste-datalist')
+  }).getDropDownArrayFirmaArrivalWaste()
 
-  function afterDropDownStatyaReturned(arrayOfArrays){
-    let firma = document.getElementById('waste-datalist')
-    arrayOfArrays.forEach((r)=>{
-      const option = document.createElement('option')
-      option.textContent = r
-      firma.appendChild(option)
-    })
-  } 
-  google.script.run.withSuccessHandler(afterDropDownStatyaReturned).getDropDownArrayStatyaArrivalWaste()
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'waste-datalist')
+  }).getDropDownArrayStatyaArrivalWaste()  
+  
 
   function rowDataRangeWaste(){
     const date = document.getElementById('date')
@@ -50,25 +40,29 @@
   } 
    
    function buttonClickWaste(){
+    //spinner('dataTableArriwalWaste')
     
     if(!rowDataTermKar()[4]){
       google.script.run.addNewRowWaste(rowDataRangeWaste())
-      document.getElementById('arriwalwasteatrong').innerHTML = rowDataRangeWaste()
+     // document.getElementById('arriwalwasteatrong').innerHTML = rowDataRangeWaste()
     }else{
       google.script.run.insertTermKar(rowDataTermKar())
-      document.getElementById('arriwalwasteatrong').innerHTML = rowDataTermKar()
+   //   document.getElementById('arriwalwasteatrong').innerHTML = rowDataTermKar()
       google.script.run.vReestrTerminalKarantin(rowDataTermKar())
     }
+      //buttonClickOchistkaAW()
+      spinner('dataTableArriwalWaste')
+      google.script.run.withSuccessHandler(createTableArriwalWaste).addNewTable(rowDataRangeWaste());
       buttonClickOchistkaAW()
-      startDataWaste()
-  }   
+ }   
  
   function buttonClickArrival(){
     
     google.script.run.addNewRowArrival(rowDataRangeArrival())
-    document.getElementById('arriwalwasteatrong').innerHTML = rowDataRangeWaste()
-    buttonClickOchistkaAW()
-    startDataArriwal()
+  //  document.getElementById('arriwalwasteatrong').innerHTML = rowDataRangeWaste()
+  spinner('dataTableArriwalWaste')
+      google.script.run.withSuccessHandler(createTableArriwalWaste).addNewTable(rowDataRangeArrival());
+      buttonClickOchistkaAW()
   }   
 
   function buttonClickOchistkaAW(){
@@ -88,11 +82,13 @@
 
 
 function startDataWaste(){
-    google.script.run.withSuccessHandler(createTableArriwalWaste).getLastTenRowsWaste();
-    document.getElementById('vrabotevseArriwalWaste').innerHTML = 'Прочие траты'
+   spinner('dataTableArriwalWaste')
+   google.script.run.withSuccessHandler(createTableArriwalWaste).getLastTenRowsWaste();
+   document.getElementById('vrabotevseArriwalWaste').innerHTML = 'Прочие траты'
 }
 
 function startDataArriwal(){
+    spinner('dataTableArriwalWaste')
     google.script.run.withSuccessHandler(createTableArriwalWaste).getLastTenRowsArriwal();
     document.getElementById('vrabotevseArriwalWaste').innerHTML = 'Прочие поступления'
 }
@@ -100,9 +96,8 @@ function startDataArriwal(){
 function createTableArriwalWaste(dataArray) {
   const nameTable = dataArray.slice()
   if(dataArray){
-    var result = "<table class='table table-sm' style='font-size:0.8em'>"
-                   
-      
+    var result = "<table class='table' style='font-size:0.8em'>"
+          
       for(var i=1; i<dataArray.length; i++) {
           result += "<tr>";
           
@@ -150,14 +145,6 @@ function createTableArriwalWaste(dataArray) {
 
 
 ///////////////////////////////////////////////////
-
-
-
-
-
-
-
-
 
 
 </script>
