@@ -1,46 +1,22 @@
 <script>
-      function afterDropDownProektReturnedJob(arrayOfArrays){
-        let firma = document.getElementById('proektjob-datalist')
-        arrayOfArrays.forEach((r)=>{
-        const option = document.createElement('option')
-        option.textContent = r
-        firma.appendChild(option)
-        })
-      }
-      google.script.run.withSuccessHandler(afterDropDownProektReturnedJob).getDropDownArrayProekt()
-
-      function afterDropDownRabotaReturnedJob(arrayOfArrays){
-        let firma = document.getElementById('rabotajob-datalist')
-        arrayOfArrays.forEach((r)=>{
-        const option = document.createElement('option')
-        option.textContent = r
-        firma.appendChild(option)
-        })
-      } 
-      google.script.run.withSuccessHandler(afterDropDownRabotaReturnedJob).getDropDownArrayRabotaJob()
-
-  function afterDropDownOpisanieReturnedJob(arrayOfArrays){
-        let firma = document.getElementById('opisaniejob-datalist')
-        arrayOfArrays.forEach((r)=>{
-        const option = document.createElement('option')
-        option.textContent = r
-        firma.appendChild(option)
-        })
-      } 
-      google.script.run.withSuccessHandler(afterDropDownOpisanieReturnedJob).getDropDownArrayOpisanieJob()
-
-  function afterDropDownFirmaReturnedJob(arrayOfArrays){
-        let firma = document.getElementById('firmajob-datalist')
-        arrayOfArrays.forEach((r)=>{
-        const option = document.createElement('option')
-        option.textContent = r
-        firma.appendChild(option)
-        })
-      } 
-      google.script.run.withSuccessHandler(afterDropDownFirmaReturnedJob).getDropDownArrayFirma()
   
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'proektjob-datalist')
+  }).getDropDownArrayProekt()
   
-  function arrayJob(ar) 
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'rabotajob-datalist')
+  }).getDropDownArrayRabotaJob()
+  
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'opisaniejob-datalist')
+  }).getDropDownArrayOpisanieJob()
+  
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'firmajob-datalist')
+  }).getDropDownArrayFirma()
+  
+function arrayJob(ar) 
       {
          var row_number_job = 0;
          var displayTableJob = '<form>';
@@ -131,7 +107,7 @@
       var idJob = document.getElementById("idjob").value;
       var firmaJob = document.getElementById("firmajob").value;
       var originalJob = document.getElementById("originaljob").checked;
-      document.getElementById("rowdatajob").innerHTML = 'Идет поиск...';
+      spinner('rowdatajob')
       google.script.run.withSuccessHandler(arrayJob).searchRecordsJob(proektJob, rabotaJob, datestartJob, dateendJob, opisanieJob, idJob, firmaJob, originalJob);
     }
 
@@ -144,7 +120,7 @@
       var idJob = document.getElementById("idjob").value;
       var firmaJob = document.getElementById("firmajob").value;
       var originalJob = document.getElementById("originaljob").checked;
-     // document.getElementById("rowdatajob").innerHTML = 'Идет поиск...';
+      spinner("rowdatajob")
       google.script.run.withSuccessHandler(arrayJob).searchRecordsJob(proektJob, rabotaJob, datestartJob, dateendJob, opisanieJob, idJob, firmaJob, originalJob);
     }
 
