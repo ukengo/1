@@ -1,85 +1,212 @@
-<div class="container">
-  <div class="row">
-       
-    <h5>Таблица Управление</h5>
-
-    <div class="col-md-2">
-      <div class="form-label bg-light">
-        <label for="dateenduprav">Дата конец</label>
-        <input type="date" id="dateenduprav" class="form-control" />
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-label bg-light">
-        <label for="datestartuprav">Дата начало</label>
-        <input type="date" id="datestartuprav" class="form-control" />
-      </div>
-    </div>
-    <div class="col-md-5">
-      <div class="form-label bg-light">
-        <label for="firmauprav">Фирма</label>
-        <input type="text" list="firmauprav-datalist" id="firmauprav" class="form-control" />
-        <datalist id="firmauprav-datalist"></datalist>
-      </div>
-    </div> 
-    <div class="col-md-5">
-      <div class="form-label bg-light">
-        <label for="rabotauprav">Работа</label>
-        <input type="text" list="rabotauprav-datalist" id="rabotauprav" class="form-control" />
-        <datalist id="rabotauprav-datalist"></datalist>
-      </div>     
-    </div>
-    <div class="col-md-2">
-      <div class="form-label bg-light">
-        <label for="coderabotauprav">Код работы</label>
-        <input type="text"  id="coderabotauprav"  list="coderabotauprav-datalist" class="form-control" />
-        <datalist id="coderabotauprav-datalist"></datalist>
-      </div> 
-    </div>
-    <div class="col-md-2">
-      <div class="form-label bg-light">
-        <label for="proektuprav" >Проект</label>
-        <input type="text" id="proektuprav" list="proektuprav-datalist"  class="form-control" />
-        <datalist id="proektuprav-datalist"></datalist> 
-      </div> 
-    </div>      
-   <div class="col-md-3">
-      <div class="form-label bg-light">
-        <label for="sotruprav" >Сотрудник</label>
-        <input type="text" id="sotruprav" list="sotruprav-datalist" class="form-control "/>
-        <datalist id="sotruprav-datalist"></datalist> 
-      </div>
-    </div>
-    <div class="col-md-1">
-      <div class="form-label bg-light">
-        <label for="schuprav" >сч</label>
-        <input type="text" id="schuprav" class="form-control "/>
-      </div>
-    </div>      
-    <div class="col-md-6">
-      <div class="form-label bg-light">
-        <label for="primuprav" >Примечание</label>
-        <input type="text" id="primuprav" list="primuprav-datalist" class="form-control "/>
-        <datalist id="primuprav-datalist"></datalist> 
-      </div>    
-    </div>
-    <div class="col-md-2  bg-light">
-       <label for="largestproektuprav">Largest project:</label>
-       <div id="largestproektuprav" ></div>
-    </div> 
-        
-  </div>
-
-      
-
-  <div class="row  mb-4 mt-2">     
-      <div class="col-md-4">    
-         <input type="button" value="Search" class="btn btn-primary" onclick="SearchRecordsUprav()" />
-          <input type="button" value="Add Record" class="btn btn-primary" onclick="AddRowUprav()" id="add_button_uprav" />
-          <input type="button" value="Clear Record" class="btn btn-primary" onclick="ClearRecordUprav()" />
-      </div>
-  </div>
-        
-    <div id="rowdata"></div>
+<script>
   
-</div>
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'firmauprav-datalist')
+  }).getDropDownArrayFirma()
+
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'rabotauprav-datalist')
+  }).getDropDownArrayRabota()
+
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'coderabotauprav-datalist')
+  }).getDropDownArrayCodeRabota()
+  
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'sotruprav-datalist')
+  }).getDropDownArraySotr()
+  
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'primuprav-datalist')
+  }).getDropDownArrayPrim()
+ 
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'proektuprav-datalist')
+  }).getDropDownArrayProekt()
+
+	function AddRowUprav()
+    {
+      document.getElementById("add_button_uprav").disabled = true;
+      var dateendUprav = document.getElementById("dateenduprav").value;
+      var datestartUprav = document.getElementById("datestartuprav").value;
+      var firmaUprav = document.getElementById("firmauprav").value;
+      var rabotaUprav = document.getElementById("rabotauprav").value;
+      var coderabotaUprav = document.getElementById("coderabotauprav").value;
+      var proektUprav = document.getElementById("proektuprav").value;
+      var ispolUprav = document.getElementById("ispoluprav").value;
+      var schUprav = document.getElementById("schuprav").value;
+      var primUprav = document.getElementById("primuprav").value;
+  
+        google.script.run.withSuccessHandler(function(return_string) 
+        {
+          SearchRecordsUprav();
+          document.getElementById("add_button_uprav").disabled = false;
+        }).AddRecordUprav(dateendUprav, datestartUprav, firmaUprav, rabotaUprav, coderabotaUprav, proektUprav, ispolUprav, schUprav, primUprav);       
+      }
+    
+
+    function ClearRecordUprav()
+    {
+        document.getElementById("dateenduprav").value = '';
+        document.getElementById("datestartuprav").value = '';
+        document.getElementById("firmauprav").value = '';
+        document.getElementById("rabotauprav").value = '';
+        document.getElementById("coderabotauprav").value = '';
+        document.getElementById("proektuprav").value = '';
+        document.getElementById("ispoluprav").value = '';
+        document.getElementById("schuprav").value = '';
+        document.getElementById("primuprav").value = '';
+        /* document.getElementById("display_error").innerHTML = ""; */
+    }
+
+    function UpdateRecordUprav(row_number_uprav)
+    {
+      document.getElementById("update_button_uprav"+row_number_uprav).disabled = true;
+     // var record_id = document.getElementById("up_record_id"+row_number_uprav).value;
+      var dateendUprav = document.getElementById("up_dateenduprav"+row_number_uprav).value;
+      var datestartUprav = document.getElementById("up_datestartuprav"+row_number_uprav).value;
+      var firmaUprav = document.getElementById("up_firmauprav"+row_number_uprav).value;
+      var rabotaUprav = document.getElementById("up_rabotauprav"+row_number_uprav).value;
+      var coderabotaUprav = document.getElementById("up_coderabotauprav"+row_number_uprav).value;
+      var proektUprav = document.getElementById("up_proektuprav"+row_number_uprav).value;
+      var ispolUprav = document.getElementById("up_ispoluprav"+row_number_uprav).value;
+      var schUprav = document.getElementById("up_schuprav"+row_number_uprav).value;
+      var primUprav = document.getElementById("up_primuprav"+row_number_uprav).value;
+
+      google.script.run.withSuccessHandler(function(return_string) 
+      {
+          document.getElementById("update_button_uprav"+row_number_uprav).disabled = false;
+      }).UpdateRecordUprav(dateendUprav, datestartUprav, firmaUprav, rabotaUprav, coderabotaUprav, proektUprav, ispolUprav, schUprav, primUprav);
+    }
+
+    function DeleteRecordUprav(row_number_uprav)
+    {
+
+      var record_id = document.getElementById("up_proektuprav"+row_number_uprav).value;
+
+      google.script.run.withSuccessHandler(function(return_string) 
+      {
+        if(return_string == 'SUCCESS')
+        {
+          document.getElementById('mainTableUprav').deleteRow(document.getElementById('ROWNUMBER:'+row_number_uprav).rowIndex); 
+        }
+      }).DeleteRecordUprav(record_id);
+    }
+
+    function SearchRecordsUprav() 
+    {
+      var dateendUprav = document.getElementById("dateenduprav").value;
+      var datestartUprav = document.getElementById("datestartuprav").value;
+      var firmaUprav = document.getElementById("firmauprav").value;
+      var rabotaUprav = document.getElementById("rabotauprav").value;
+      var coderabotaUprav = document.getElementById("coderabotauprav").value;
+      var proektUprav = document.getElementById("proektuprav").value;
+      var sotrUprav = document.getElementById("sotruprav").value;
+      var schUprav = document.getElementById("schuprav").value;
+      var primUprav = document.getElementById("primuprav").value;
+      var row_number_uprav = 0;
+      spinner('rowdata')
+      google.script.run.withSuccessHandler(function(ar) 
+      {
+
+        
+          var displayTable = '<form>';
+          displayTable += '<table class=\"table table-bordered border-primary mb-2 mt-2\" id=\"mainTableUprav\" >';
+          displayTable += "<tr>";
+          displayTable += "<th>Найдено:</th>";
+          displayTable += "<th></th>";
+          displayTable += "<th></th>";
+          displayTable += "<th></th>";
+          displayTable += "</tr>";
+
+        ar.forEach(function(item, index) 
+        {
+          displayTable += "<tr id=\"ROWNUMBER:"+ row_number_uprav +"\" >";
+
+          displayTable += "<td colspan=\"9\">"
+          displayTable += "<div class=\"row\">"
+          
+          displayTable += "<div class=\"col-md-3\">"
+          displayTable += "<div class=\"form-label\">"
+          displayTable += "<label for=\"up_dateenduprav\">Дата конец</label>  ";
+          displayTable += "<input type=\"date\" id=\"up_dateenduprav"+ row_number_uprav +"\" value=\""+item[0]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-3\">"
+          displayTable += "<div class=\"form-label\">"
+          displayTable += "<label for=\"up_datestartuprav\">Дата начало</label> ";
+          displayTable += "<input type=\"date\" id=\"up_datestartuprav"+ row_number_uprav +"\" value=\""+item[1]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-5\">"
+          displayTable += "<div class=\"form-label\">"
+          displayTable += "<label for=\"up_firmauprav\">Фирма</label> ";
+          displayTable += "<input type=\"text\" id=\"up_firmauprav"+ row_number_uprav +"\" value=\""+item[2]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-5\">"
+          displayTable += "<div class=\"form-label\">"
+          displayTable += "<label for=\"up_rabotauprav\">Работа</label> "; 
+          displayTable += "<input type=\"text\" id=\"up_rabotauprav"+ row_number_uprav +"\" value=\""+item[3]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-2\">"
+          displayTable += "<div class=\"form-label\">"
+          displayTable += "<label for=\"up_coderabotauprav\">Код работы</label> "; 
+          displayTable += "<input type=\"text\" id=\"up_coderabotauprav"+ row_number_uprav +"\" value=\""+item[4]+"\" class=\"form-control\" /></div></div> ";
+          
+          displayTable += "<div class=\"col-md-2\">"
+          displayTable += "<div class=\"form-label\">"
+          displayTable += "<label for=\"up_proektuprav\">Проект</label> ";
+          displayTable += "<input type=\"text\" id=\"up_proektuprav"+ row_number_uprav +"\" value=\""+item[5]+"\" class=\"form-control\" /></div></div> ";
+          
+          
+          displayTable += "<div class=\"col-md-3\">"
+          displayTable += "<div class=\"form-label\">"
+          displayTable += "<label for=\"up_sotruprav\">Сотрудник</label> ";
+          displayTable += "<input type=\"text\" id=\"up_sotruprav"+ row_number_uprav +"\" value=\""+item[6]+"\" class=\"form-control\" /></div></div> ";          
+
+          displayTable += "<div class=\"col-md-1\">"
+          displayTable += "<div class=\"form-label\">" 
+          displayTable += "<label for=\"up_schuprav\">Счет</label> ";
+          displayTable += "<input type=\"text\" id=\"up_schuprav"+ row_number_uprav +"\" value=\""+item[7]+"\" class=\"form-control\" /></div></div> ";
+
+          displayTable += "<div class=\"col-md-6\">"
+          displayTable += "<div class=\"form-label\">" 
+          displayTable += "<label for=\"up_primuprav\">Примечание</label> ";
+          displayTable += "<input type=\"text\" id=\"up_primuprav"+ row_number_uprav +"\" value=\""+item[8]+"\" class=\"form-control\" /></div></div> ";
+          
+          displayTable += "<td><div style=\"padding: 5px\"> ";
+
+          displayTable += "<input type=\"button\" id=\"update_button_uprav"+ row_number_uprav +"\" value=\"Update\" class=\"btn btn-primary\" ";
+          displayTable += "onclick=\"UpdateRecordUprav("+row_number_uprav+")\" /></div> ";
+
+          
+          displayTable += "<div style=\"padding: 5px\" > ";
+
+          displayTable += "<input type=\"button\" id=\"delete_button_uprav"+ row_number_uprav +"\" value=\"Delete\" class=\"btn btn-primary\" ";
+          displayTable += "onclick=\"DeleteRecordUprav("+row_number_uprav+")\" /></div> ";
+
+
+          displayTable += "</td>";
+          displayTable += "</tr>";
+          row_number_uprav++;    
+        });
+
+        displayTable += '</table></form>';     
+        document.getElementById("rowdata").innerHTML = displayTable;
+
+      }).searchRecordsUpravGs(dateendUprav, datestartUprav, firmaUprav, rabotaUprav, coderabotaUprav, proektUprav, sotrUprav, schUprav, primUprav);
+      
+    }
+
+
+//////////////////////////////////////////////////////////////////
+
+
+
+  ////////////////////////////////////////////////////////////////    
+
+ function afterproektUprav(array){
+    document.getElementById('largestproektuprav').innerHTML = array
+  }
+  google.script.run.withSuccessHandler(afterproektUprav).addpRoekt()
+
+
+</script>
