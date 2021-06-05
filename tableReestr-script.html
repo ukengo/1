@@ -1,86 +1,37 @@
 <script>
 
-  function afterDropDownArrayReturnedReestr(arrayOfArrays){
-    let firma = document.getElementById('firmareestr-datalist')
-    arrayOfArrays.forEach((r)=>{
-      const option = document.createElement('option')
-      option.textContent = r
-      firma.appendChild(option)
-    })
-  } 
-  google.script.run.withSuccessHandler(afterDropDownArrayReturnedReestr).getDropDownArrayFirma()
-
-   function afterDropDownRabotaReturnedReestr(arrayOfArrays){
-    let firma = document.getElementById('rabotareestr-datalist')
-    arrayOfArrays.forEach((r)=>{
-      const option = document.createElement('option')
-      option.textContent = r
-      firma.appendChild(option)
-    })
-  } 
-  google.script.run.withSuccessHandler(afterDropDownRabotaReturnedReestr).getDropDownArrayRabota()
-
-  function afterDropDownCodeRabotaReturnedReestr(arrayOfArrays){
-    let firma = document.getElementById('coderabotareestr-datalist')
-    arrayOfArrays.forEach((r)=>{
-    const option = document.createElement('option')
-    option.textContent = r
-    firma.appendChild(option)
-    })
-  } 
-  google.script.run.withSuccessHandler(afterDropDownCodeRabotaReturnedReestr).getDropDownArrayCodeRabota()
-
-  function afterDropDownProektReturnedReestr(arrayOfArrays){
-    let firma = document.getElementById('proektreestr-datalist')
-    arrayOfArrays.forEach((r)=>{
-      const option = document.createElement('option')
-      option.textContent = r
-      firma.appendChild(option)
-    })
-  } 
-  google.script.run.withSuccessHandler(afterDropDownProektReturnedReestr).getDropDownArrayProekt()
-
-
-  function afterDropDownSotrReturnedReestr(arrayOfArrays){
-    let firma = document.getElementById('sotrreestr-datalist')
-    arrayOfArrays.forEach((r)=>{
-      const option = document.createElement('option')
-      option.textContent = r
-      firma.appendChild(option)
-    })
-  } 
-  google.script.run.withSuccessHandler(afterDropDownSotrReturnedReestr).getDropDownArraySotr()
-
-  function afterDropDownIspolReturnedReestr(arrayOfArrays){
-    let firma = document.getElementById('ispolreestr-datalist')
-    arrayOfArrays.forEach((r)=>{
-      const option = document.createElement('option')
-      option.textContent = r
-      firma.appendChild(option)
-    })
-  } 
-  google.script.run.withSuccessHandler(afterDropDownIspolReturnedReestr).getDropDownArrayIspol()
-
-  function afterDropDownPrimReturnedReestr(arrayOfArrays){
-    let firma = document.getElementById('primreestr-datalist')
-    arrayOfArrays.forEach((r)=>{
-      const option = document.createElement('option')
-      option.textContent = r
-      firma.appendChild(option)
-    })
-  } 
-  google.script.run.withSuccessHandler(afterDropDownPrimReturnedReestr).getDropDownArrayPrim()
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'firmareestr-datalist')
+  }).getDropDownArrayFirma()
   
-  function afterDropDownPrimMoyoReturnedReestr(arrayOfArrays){
-    let firma = document.getElementById('primmoyoreestr-datalist')
-    arrayOfArrays.forEach((r)=>{
-      const option = document.createElement('option')
-      option.textContent = r
-      firma.appendChild(option)
-    })
-  } 
-  google.script.run.withSuccessHandler(afterDropDownPrimMoyoReturnedReestr).getDropDownArrayPrimMoyoReestr()
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'rabotareestr-datalist')
+  }).getDropDownArrayRabota()
+  
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'coderabotareestr-datalist')
+  }).getDropDownArrayCodeRabota()
+ 
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'proektreestr-datalist')
+  }).getDropDownArrayProekt()
 
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'sotrreestr-datalist')
+  }).getDropDownArraySotr()  
+
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'ispolreestr-datalist')
+  }).getDropDownArrayIspol()
+
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'primreestr-datalist')
+  }).getDropDownArrayPrim()
+
+  google.script.run.withSuccessHandler(function childFin (arrayOfArrays){
+    afterDropDownReturned(arrayOfArrays, 'primmoyoreestr-datalist')
+  }).getDropDownArrayPrimMoyoReestr()
+  
   function SearchRecordsReestr() 
     {
      
@@ -100,7 +51,7 @@
       var withoutaccountReestr = document.getElementById("withoutaccountreestr").checked;
       var stoppedReestr = document.getElementById("stoppedreestr").checked;
       var row_number_reestr = 0;
-      document.getElementById("rowdatareestr").innerHTML = 'Идет поиск...'
+      spinner('rowdatareestr')
       google.script.run.withSuccessHandler(function(ar) 
       {
      
@@ -141,7 +92,7 @@
           displayTableReestr += "<div class=\"col-md-2\">"
           displayTableReestr += "<div class=\"form-label bg-light\">"
           displayTableReestr += "<label for=\"up_rabotareestr\">Работа</label> "; 
-          displayTableReestr += "<input type=\"text\" id=\"up_rabotareestr"+ row_number_reestr +"\" value=\""+item[3]+"\" class=\"form-control\" /></div></div> ";
+          displayTableReestr += "<input type=\"text\" list=\"rabotareestr-datalist\" id=\"up_rabotareestr"+ row_number_reestr +"\" value=\""+item[3]+"\" class=\"form-control\" /><datalist id=\"rabotareestr-datalist\"></datalist></div></div> ";
 
           displayTableReestr += "<div class=\"col-md-1\">"
           displayTableReestr += "<div class=\"form-label bg-light\">"
